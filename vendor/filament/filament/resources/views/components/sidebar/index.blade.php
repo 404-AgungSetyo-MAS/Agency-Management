@@ -115,7 +115,7 @@
             </div>
         @endif
 
-{{-- Profile inside side navbar --}}
+{{--Profile inside side navbar--}}
             <div
             {{-- x-persist="topbar.end" --}}
             class="flex" style="align-self: center"
@@ -137,7 +137,7 @@
             @endif
             </div>
 
-{{-- Profile inside side navbar --}}
+{{--Profile inside side navbar--}}
 
         <ul class="fi-sidebar-nav-groups -mx-2 flex flex-col gap-y-7">
             @foreach ($navigation as $group)

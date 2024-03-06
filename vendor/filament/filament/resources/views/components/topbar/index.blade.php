@@ -151,7 +151,7 @@
             @endif
         @endif
 
-{{-- Profile TopNav --}}
+{{--Profile TopNav--}}
 {{--
         <div
             x-persist="topbar.end"
@@ -174,7 +174,7 @@
             @endif
         </div>
          --}}
-{{-- Profile TopNav --}}
+{{--Profile TopNav--}}
 
         {{ \Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::TOPBAR_END) }}
     </nav>
