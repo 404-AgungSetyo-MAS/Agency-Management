@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
-            $table->string('img')->nullable();
+            $table->string('img')->nullable()->default('employee-def');
             $table->string('nama_lengkap');
             $table->string('tempat_lahir');
             $table->date('tgl_lahir');
