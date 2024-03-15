@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Archive extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'code',
+        'nama',
+        'file',
+    ];
 }
