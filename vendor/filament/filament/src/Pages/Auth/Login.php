@@ -133,8 +133,7 @@ class Login extends SimplePage
     {
         return TextInput::make('login')
         ->label('Username or Email')
-        ->required()
-        ->autofocus();
+        ->required();
     }
     protected function getEmailFormComponent(): Component
     {

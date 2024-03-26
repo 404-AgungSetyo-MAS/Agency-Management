@@ -6,11 +6,24 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+
+    public function down(): void
+    {
+        Schema::dropIfExists('employees');
+        Schema::dropIfExists('archives');
+        Schema::dropIfExists('inventory_assets');
+        Schema::dropIfExists('monetaries');
+    }
     /**
      * Run the migrations.
      */
     public function up(): void
     {
+            Schema::dropIfExists('employees');
+            Schema::dropIfExists('archives');
+            Schema::dropIfExists('inventory_assets');
+            Schema::dropIfExists('monetaries');
+
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
             $table->string('img')->nullable();
@@ -26,7 +39,13 @@ return new class extends Migration
 
         Schema::create('archives', function (Blueprint $table) {
             $table->id();
-            $table->string('code');
+            $table->foreignId('masuta_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('sub_masuta_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('sub_sub_masuta_id')->constrained()->cascadeOnDelete();
+            // $table->string('dnumb')->autoIncrement();
+            // $table->integer('month');
+            // $table->integer('year');
+            $table->string('full_code')->virtualAs('concat(sub_masuta_id, \'\',sub_sub_masuta_id)');
             $table->string('nama');
             $table->string('file');
             $table->timestamps();
@@ -54,11 +73,5 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void
-    {
-        Schema::dropIfExists('employees');
-        Schema::dropIfExists('archives');
-        Schema::dropIfExists('inventory_assets');
-        Schema::dropIfExists('monetaries');
-    }
+
 };
