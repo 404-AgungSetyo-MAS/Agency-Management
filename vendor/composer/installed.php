@@ -3,13 +3,22 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'ffc5fa161bb41762ae67b01a1b684895ee6b355d',
+        'reference' => '0f9f2e0799cdbf51e6cb70159a4ee26644ba5124',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
+        'akaunting/laravel-money' => array(
+            'pretty_version' => '5.2.0',
+            'version' => '5.2.0.0',
+            'reference' => 'c6710ee50ad9a394e3f607a0ebbc64905c308e69',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../akaunting/laravel-money',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'anourvalar/eloquent-serialize' => array(
             'pretty_version' => '1.2.19',
             'version' => '1.2.19.0',
@@ -544,7 +553,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'ffc5fa161bb41762ae67b01a1b684895ee6b355d',
+            'reference' => '0f9f2e0799cdbf51e6cb70159a4ee26644ba5124',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

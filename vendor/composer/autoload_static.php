@@ -41,6 +41,7 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
+        'eee56a36884c3af04e64bac85043e771' => __DIR__ . '/..' . '/akaunting/laravel-money/src/helpers.php',
         '89e9938b64b06cc502d7ceca69a380fe' => __DIR__ . '/..' . '/filament/filament/src/global_helpers.php',
         'ebb446bb6d02e998480945fbbb73dc64' => __DIR__ . '/..' . '/filament/filament/src/helpers.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
@@ -223,6 +224,7 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         array (
             'App\\' => 4,
             'AnourValar\\EloquentSerialize\\' => 29,
+            'Akaunting\\Money\\' => 16,
         ),
     );
 
@@ -694,9 +696,22 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         array (
             0 => __DIR__ . '/..' . '/anourvalar/eloquent-serialize/src',
         ),
+        'Akaunting\\Money\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/akaunting/laravel-money/src',
+        ),
     );
 
     public static $classMap = array (
+        'Akaunting\\Money\\Casts\\CurrencyCast' => __DIR__ . '/..' . '/akaunting/laravel-money/src/Casts/CurrencyCast.php',
+        'Akaunting\\Money\\Casts\\MoneyCast' => __DIR__ . '/..' . '/akaunting/laravel-money/src/Casts/MoneyCast.php',
+        'Akaunting\\Money\\Currency' => __DIR__ . '/..' . '/akaunting/laravel-money/src/Currency.php',
+        'Akaunting\\Money\\Exceptions\\UnexpectedAmountException' => __DIR__ . '/..' . '/akaunting/laravel-money/src/Exceptions/UnexpectedAmountException.php',
+        'Akaunting\\Money\\Money' => __DIR__ . '/..' . '/akaunting/laravel-money/src/Money.php',
+        'Akaunting\\Money\\Provider' => __DIR__ . '/..' . '/akaunting/laravel-money/src/Provider.php',
+        'Akaunting\\Money\\Rules\\CurrencyRule' => __DIR__ . '/..' . '/akaunting/laravel-money/src/Rules/CurrencyRule.php',
+        'Akaunting\\Money\\View\\Components\\Currency' => __DIR__ . '/..' . '/akaunting/laravel-money/src/View/Components/Currency.php',
+        'Akaunting\\Money\\View\\Components\\Money' => __DIR__ . '/..' . '/akaunting/laravel-money/src/View/Components/Money.php',
         'AnourValar\\EloquentSerialize\\Facades\\EloquentSerializeFacade' => __DIR__ . '/..' . '/anourvalar/eloquent-serialize/src/Facades/EloquentSerializeFacade.php',
         'AnourValar\\EloquentSerialize\\Grammars\\EloquentBuilderGrammar' => __DIR__ . '/..' . '/anourvalar/eloquent-serialize/src/Grammars/EloquentBuilderGrammar.php',
         'AnourValar\\EloquentSerialize\\Grammars\\ModelGrammar' => __DIR__ . '/..' . '/anourvalar/eloquent-serialize/src/Grammars/ModelGrammar.php',
@@ -716,11 +731,16 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\ValidateSignature' => __DIR__ . '/../..' . '/app/Http/Middleware/ValidateSignature.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Models\\Archive' => __DIR__ . '/../..' . '/app/Models/Archive.php',
+        'App\\Models\\Employee' => __DIR__ . '/../..' . '/app/Models/Employee.php',
+        'App\\Models\\Inventory_Asset' => __DIR__ . '/../..' . '/app/Models/Inventory_Asset.php',
+        'App\\Models\\Monetary' => __DIR__ . '/../..' . '/app/Models/Monetary.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
+        'App\\Providers\\Filament\\AdminPanelProvider' => __DIR__ . '/../..' . '/app/Providers/Filament/AdminPanelProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'BladeUI\\Heroicons\\BladeHeroiconsServiceProvider' => __DIR__ . '/..' . '/blade-ui-kit/blade-heroicons/src/BladeHeroiconsServiceProvider.php',
