@@ -6,26 +6,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Monetary extends Model
+class Keusubkategori extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'code',
         'keukategori_id',
-        'keusubkategori_id',
-        'nama',
-        'tgl',
-        'nomor',
-        'value'
+        'nama'
     ];
 
-    public function Keukategori(): BelongsTo
+    public function keukategori(): BelongsTo
     {
         return $this->belongsTo(Keukategori::class);
-    }
-    public function Keusubkategori(): BelongsTo
-    {
-        return $this->belongsTo(Keusubkategori::class);
     }
 }
