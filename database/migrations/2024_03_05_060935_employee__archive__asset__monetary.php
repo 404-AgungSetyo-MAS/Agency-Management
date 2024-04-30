@@ -53,11 +53,15 @@ return new class extends Migration
         Schema::create('inventory_assets', function (Blueprint $table) {
             $table->id();
             $table->string('img')->nullable();
-            $table->string('code');
+            $table->string('code')->virtualAs('concat(LPAD(asset_clasification_id, 2, \'0\'),\' \', LPAD(asset_type_id, 2, \'0\'),\' \', LPAD(asset_sub_type_id, 2, \'0\'),\' \', LPAD(asset_location_id, 3, \'0\'),\' \', LPAD(id, 4, \'0\'), date_format(tgl, \'%y\'))');
+            $table->foreignId('asset_clasification_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('asset_type_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('asset_sub_type_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('asset_location_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->date('tgl');
             $table->string('nama');
-            $table->string('type');
+            // $table->integer('qty');
             $table->string('description');
-            $table->integer('qty');
             $table->string('status');
             $table->timestamps();
         });
