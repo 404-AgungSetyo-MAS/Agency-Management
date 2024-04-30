@@ -63,8 +63,12 @@ return new class extends Migration
         });
         Schema::create('monetaries', function (Blueprint $table) {
             $table->id();
-            $table->string('code');
+            $table->string('code')->virtualAs('concat(LPAD(keukategori_id, 2, \'0\'), \'.\', LPAD(keusubkategori_id, 2, \'0\'),\'.\',date_format(tgl, \'%m%y\'), nomor)');
+            $table->foreignId('keukategori_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('keusubkategori_id')->constrained()->cascadeOnDelete();
+            $table->integer('nomor');
             $table->string('nama');
+            $table->date('tgl');
             $table->integer('value');
             $table->timestamps();
         });

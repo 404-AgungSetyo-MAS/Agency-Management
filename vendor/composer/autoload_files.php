@@ -40,6 +40,7 @@ return array(
     '7b11c4dc42b3b3023073cb14e519683c' => $vendorDir . '/ralouphie/getallheaders/src/getallheaders.php',
     '6124b4c8570aa390c21fafd04a26c69f' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
     '801c31d8ed748cfa537fa45402288c95' => $vendorDir . '/psy/psysh/src/functions.php',
+    'eee56a36884c3af04e64bac85043e771' => $vendorDir . '/akaunting/laravel-money/src/helpers.php',
     '89e9938b64b06cc502d7ceca69a380fe' => $vendorDir . '/filament/filament/src/global_helpers.php',
     'ebb446bb6d02e998480945fbbb73dc64' => $vendorDir . '/filament/filament/src/helpers.php',
     '37a3dc5111fe8f707ab4c132ef1dbc62' => $vendorDir . '/guzzlehttp/guzzle/src/functions_include.php',
