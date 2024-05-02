@@ -1,6 +1,75 @@
 {
     "packages": [
         {
+            "name": "akaunting/laravel-module",
+            "version": "4.0.2",
+            "version_normalized": "4.0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/akaunting/laravel-module.git",
+                "reference": "9aba233a9349c0e8b6c3ebab142e77acb77bcaa3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/akaunting/laravel-module/zipball/9aba233a9349c0e8b6c3ebab142e77acb77bcaa3",
+                "reference": "9aba233a9349c0e8b6c3ebab142e77acb77bcaa3",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "laravel/framework": "^9.0|^10.0",
+                "orchestra/testbench": "^7.4|^8.0",
+                "phpunit/phpunit": "^9.5|^10.0"
+            },
+            "time": "2023-10-25T08:20:01+00:00",
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Akaunting\\Module\\Providers\\Laravel"
+                    ],
+                    "aliases": {
+                        "Module": "Akaunting\\Module\\Facade"
+                    }
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Akaunting\\Module\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Denis Duliçi",
+                    "email": "info@akaunting.com",
+                    "homepage": "https://akaunting.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Module management package for Laravel",
+            "keywords": [
+                "akaunting",
+                "laravel",
+                "module",
+                "rad"
+            ],
+            "support": {
+                "issues": "https://github.com/akaunting/laravel-module/issues",
+                "source": "https://github.com/akaunting/laravel-module/tree/4.0.2"
+            },
+            "install-path": "../akaunting/laravel-module"
+        },
+        {
             "name": "akaunting/laravel-money",
             "version": "5.2.0",
             "version_normalized": "5.2.0.0",

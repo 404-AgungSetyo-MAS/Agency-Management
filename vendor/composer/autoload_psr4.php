@@ -122,4 +122,5 @@ return array(
     'App\\' => array($baseDir . '/app', $vendorDir . '/laravel/pint/app'),
     'AnourValar\\EloquentSerialize\\' => array($vendorDir . '/anourvalar/eloquent-serialize/src'),
     'Akaunting\\Money\\' => array($vendorDir . '/akaunting/laravel-money/src'),
+    'Akaunting\\Module\\' => array($vendorDir . '/akaunting/laravel-module/src'),
 );

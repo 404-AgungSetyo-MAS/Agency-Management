@@ -3,13 +3,22 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '0f9f2e0799cdbf51e6cb70159a4ee26644ba5124',
+        'reference' => '34db17cb5f4fc2cce239e915428bb22ba6c8d1c4',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
+        'akaunting/laravel-module' => array(
+            'pretty_version' => '4.0.2',
+            'version' => '4.0.2.0',
+            'reference' => '9aba233a9349c0e8b6c3ebab142e77acb77bcaa3',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../akaunting/laravel-module',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'akaunting/laravel-money' => array(
             'pretty_version' => '5.2.0',
             'version' => '5.2.0.0',
@@ -553,7 +562,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '0f9f2e0799cdbf51e6cb70159a4ee26644ba5124',
+            'reference' => '34db17cb5f4fc2cce239e915428bb22ba6c8d1c4',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
