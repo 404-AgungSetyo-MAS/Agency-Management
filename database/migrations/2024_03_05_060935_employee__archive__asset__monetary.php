@@ -7,26 +7,26 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
 
+        /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('employees');
-        Schema::dropIfExists('archives');
-        Schema::dropIfExists('inventory_assets');
-        Schema::dropIfExists('monetaries');
+        //
     }
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-            Schema::dropIfExists('employees');
-            Schema::dropIfExists('archives');
-            Schema::dropIfExists('inventory_assets');
-            Schema::dropIfExists('monetaries');
+        Schema::dropIfExists('employees');
+        Schema::dropIfExists('archives');
+        Schema::dropIfExists('inventory_assets');
+        Schema::dropIfExists('monetaries');
 
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
-            $table->string('img')->nullable()->default('employee-def');
+            $table->json('img')->nullable()->default('employee-def.jpg');
             $table->string('nama_lengkap');
             $table->string('tempat_lahir');
             $table->date('tgl_lahir');
@@ -40,12 +40,13 @@ return new class extends Migration
         Schema::create('archives', function (Blueprint $table) {
             $table->id();
             $table->foreignId('masuta_id')->constrained()->cascadeOnDelete();
+            // $table->string('masuta_name')->virtualAs('CONCAT(masutas.name)');
             $table->foreignId('sub_masuta_id')->constrained()->cascadeOnDelete();
+            // $table->string('sub_masuta_code');
             $table->foreignId('sub_sub_masuta_id')->constrained()->cascadeOnDelete();
-            // $table->string('dnumb')->autoIncrement();
-            // $table->integer('month');
-            // $table->integer('year');
-            $table->string('full_code')->virtualAs('concat(sub_masuta_id, \'\',sub_sub_masuta_id)');
+            // $table->string('sub_sub_masuta_code');
+            $table->string('full_code')->virtualAs('concat(LPAD(sub_masuta_id, 2, \'0\'), \' \',LPAD(sub_sub_masuta_id, 2,\'0\'),\' \', LPAD(id, 4,\'0\'), DATE_FORMAT(updated_at, \'%m%y\'))');
+            $table->date('tgl');
             $table->string('nama');
             $table->string('file');
             $table->timestamps();
@@ -53,7 +54,12 @@ return new class extends Migration
         Schema::create('inventory_assets', function (Blueprint $table) {
             $table->id();
             $table->string('img')->nullable();
-            $table->string('code')->virtualAs('concat(LPAD(asset_clasification_id, 2, \'0\'),\' \', LPAD(asset_type_id, 2, \'0\'),\' \', LPAD(asset_sub_type_id, 2, \'0\'),\' \', LPAD(asset_location_id, 3, \'0\'),\' \', LPAD(id, 4, \'0\'), date_format(tgl, \'%y\'))');
+            $table->string('code')
+                ->virtualAs('concat(LPAD(asset_clasification_id, 2, \'0\'),\' \',
+                             LPAD(asset_type_id, 2, \'0\'),\' \',
+                             LPAD(asset_sub_type_id, 2, \'0\'),\' \',
+                             LPAD(asset_location_id, 3, \'0\'),\' \',
+                             LPAD(id, 4, \'0\'), date_format(tgl, \'%y\'))');
             $table->foreignId('asset_clasification_id')->constrained()->cascadeOnDelete();
             $table->foreignId('asset_type_id')->constrained()->cascadeOnDelete();
             $table->foreignId('asset_sub_type_id')->constrained()->cascadeOnDelete();
@@ -77,9 +83,4 @@ return new class extends Migration
             $table->timestamps();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
-
 };

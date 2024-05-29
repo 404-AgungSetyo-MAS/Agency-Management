@@ -16,8 +16,11 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class AssetTypeResource extends Resource
 {
     protected static ?string $model = AssetType::class;
-
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $modelLabel = 'Asset Types';
+    protected static ?string $navigationLabel = 'Tipe Aset';
+    protected static ?string $navigationGroup = 'Aset / Inventaris';
+    protected static ?string $navigationIcon = 'heroicon-o-bars-3';
+    protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
     {

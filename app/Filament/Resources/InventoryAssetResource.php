@@ -21,8 +21,11 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class InventoryAssetResource extends Resource
 {
     protected static ?string $model = InventoryAsset::class;
-
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $modelLabel = 'Barang - barang Inventaris';
+    protected static ?string $navigationLabel = 'Data Barang / Aset';
+    protected static ?string $navigationGroup = 'Aset / Inventaris';
+    protected static ?string $navigationIcon = 'heroicon-o-home-modern';
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {

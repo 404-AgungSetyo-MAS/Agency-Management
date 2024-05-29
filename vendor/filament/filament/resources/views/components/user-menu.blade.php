@@ -15,7 +15,7 @@
 {{ \Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::USER_MENU_BEFORE) }}
 
 <x-filament::dropdown
-    placement="bottom"
+    placement="top-end"
     teleport
     :attributes="
         \Filament\Support\prepare_inherited_attributes($attributes)

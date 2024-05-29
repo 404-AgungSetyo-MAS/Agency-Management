@@ -11,10 +11,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::dropIfExists('anggarans');
-        Schema::dropIfExists('keusubkategoris');
-        Schema::dropIfExists('keukategoris');
-
         Schema::create("anggarans", function (Blueprint $table) {
             $table->id();
             $table->float('nominal');
@@ -22,13 +18,13 @@ return new class extends Migration
         });
         Schema::create("keukategoris", function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
+            $table->string('nama')->unique();
             $table->timestamps();
         });
         Schema::create("keusubkategoris", function (Blueprint $table) {
             $table->id();
             $table->foreignId('keukategori_id')->constrained()->cascadeOnDelete();
-            $table->string('nama');
+            $table->string('nama')->unique();
             $table->timestamps();
         });
     }
@@ -39,7 +35,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('anggarans');
-        Schema::dropIfExists('keusubkategoris');
         Schema::dropIfExists('keukategoris');
+        Schema::dropIfExists('keusubkategoris');
     }
 };

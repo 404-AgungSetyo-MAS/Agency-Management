@@ -18,9 +18,10 @@ class KeusubkategoriResource extends Resource
 {
     protected static ?string $model = Keusubkategori::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-bars-2';
     protected static ?string $navigationGroup = 'Keuangan';
     protected static ?string $navigationLabel = 'Sub Kategori Keuangan';
+    protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
     {

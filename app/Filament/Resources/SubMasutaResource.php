@@ -16,9 +16,11 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class SubMasutaResource extends Resource
 {
     protected static ?string $model = SubMasuta::class;
-    protected static ?string $modelLabel = 'Sub Kode';
-    protected static ?string $navigationGroup = 'Klasifikasi Arsip';
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $modelLabel = 'Archive Sub Classification';
+    protected static ?string $navigationLabel = 'Sub Klasifikasi Arsip';
+    protected static ?string $navigationGroup = ' Kearsipan';
+    protected static ?string $navigationIcon = 'heroicon-o-bars-2';
+    protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
     {

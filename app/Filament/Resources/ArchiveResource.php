@@ -13,16 +13,19 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ArchiveResource extends Resource
 {
     protected static ?string $model = Archive::class;
-    protected static ?string $modelLabel = 'Data Archive';
-    protected static ?string $navigationLabel = 'Data Arsip';
-    protected static ?string $navigationGroup = 'Kearsipan';
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $modelLabel = 'Archives';
+    protected static ?string $navigationLabel = 'Data - data Dokumen';
+    protected static ?string $navigationGroup = ' Kearsipan';
+    protected static ?string $navigationIcon = 'heroicon-o-inbox-stack';
+    protected static ?int $navigationSort = 1;
+
 
     public static function form(Form $form): Form
     {
@@ -80,7 +83,6 @@ class ArchiveResource extends Resource
                 Forms\Components\TextInput::make('file')
                     ->required()
                     ->maxLength(255),
-
             ]);
     }
 
@@ -92,19 +94,12 @@ class ArchiveResource extends Resource
                 // Tables\Columns\ColumnGroup::make('Kode', [
                     Tables\Columns\TextColumn::make('masuta.name')->label('')
                     ->searchable(),
-                    // Tables\Columns\TextColumn::make('full_code')->label('Kode')
-                    //     ->searchable()
+                    Tables\Columns\TextColumn::make('full_code')->label('Kode')
+                        ->searchable()
                     // ->formatStateUsing(function (Archive $order) {
                     //     return $order->subMasuta->code .'.'. $order->subSubMasuta->code .'.'. $order->id;
-                    // }),
-                    // ->getStateUsing(function (Archive $code): string {
-                    //     return $code->code . $code->file;
                     // })
-
-                    Tables\Columns\TextColumn::make('subMasuta.code')->label('')->searchable(),
-                    Tables\Columns\TextColumn::make('subSubMasuta.code')->label('')->searchable(),
-                    Tables\Columns\TextColumn::make('id')->label('')->searchable(),
-                    // ]),
+                    ,
 
                 Tables\Columns\TextColumn::make('nama')
                     ->searchable(),
@@ -118,7 +113,7 @@ class ArchiveResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-            ])->deferLoading()->searchable()
+            ])->searchable()
             ->filters([
                 //
             ])

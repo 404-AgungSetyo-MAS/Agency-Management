@@ -22,9 +22,10 @@ class MonetaryResource extends Resource
     protected static ?string $model = Monetary::class;
 
     protected static ?string $title = 'Data Keuangan';
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-banknotes';
     protected static ?string $navigationGroup = 'Keuangan';
     protected static ?string $navigationLabel = 'Data Keuangan';
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
