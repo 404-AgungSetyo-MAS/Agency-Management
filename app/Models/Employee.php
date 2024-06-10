@@ -22,7 +22,7 @@ class Employee extends Model
     ];
 
     protected $casts = [
-        "img" => "json",
+        "img" => "array",
     ];
 
     protected static function booted():void
@@ -35,7 +35,6 @@ class Employee extends Model
         static::updating(function (Employee $pegawai) {
 
             $filesToDelete = array_diff($pegawai->getOriginal('img'), $pegawai->img);
-
             foreach($filesToDelete as $file) {
                 Storage::delete($file);
             }

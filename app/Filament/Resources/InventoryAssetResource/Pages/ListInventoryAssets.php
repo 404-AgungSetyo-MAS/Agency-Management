@@ -13,7 +13,7 @@ class ListInventoryAssets extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()->label('Masukkan Aset Baru'),
         ];
     }
 }

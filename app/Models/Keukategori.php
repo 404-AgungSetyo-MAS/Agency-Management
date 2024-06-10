@@ -10,6 +10,6 @@ class Keukategori extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nama'
+        'name'
     ];
 }

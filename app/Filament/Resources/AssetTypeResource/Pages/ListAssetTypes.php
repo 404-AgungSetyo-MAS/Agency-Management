@@ -13,7 +13,7 @@ class ListAssetTypes extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()->label('Tipe Aset Baru'),
         ];
     }
 }

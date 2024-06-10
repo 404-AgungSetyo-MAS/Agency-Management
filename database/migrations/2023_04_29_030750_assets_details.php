@@ -19,14 +19,14 @@ return new class extends Migration
         Schema::create('asset_types', function (Blueprint $table) {
             $table->id();
             $table->foreignId('asset_clasification_id')->constrained()->cascadeOnDelete();
-            $table->string('nama')->unique();
+            $table->string('nama');
             $table->timestamps();
         });
         Schema::create('asset_sub_types', function (Blueprint $table) {
             $table->id();
             $table->foreignId('asset_clasification_id')->constrained()->cascadeOnDelete();
             $table->foreignId('asset_type_id')->constrained()->cascadeOnDelete();
-            $table->string('nama')->unique();
+            $table->string('nama');
             $table->timestamps();
         });
         Schema::create('asset_locations', function (Blueprint $table) {

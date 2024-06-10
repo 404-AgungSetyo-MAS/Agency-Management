@@ -12,7 +12,10 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Notifications\Collection;
 use Filament\Resources\Resource;
+use Filament\Support\RawJs;
 use Filament\Tables;
+use Filament\Tables\Columns\Summarizers\Summarizer;
+use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -31,28 +34,32 @@ class MonetaryResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('keukategori_id')
+                Forms\Components\Select::make('keukategori_id')->label('Kategori')
                     ->required()
-                    ->relationship(name:'keukategori', titleAttribute:'nama')
+                    ->relationship(name:'keukategori', titleAttribute:'name')
                     ->preload()
                     ->native(false),
-                Forms\Components\Select::make('keusubkategori_id')
+                Forms\Components\Select::make('keusubkategori_id')->label('sub-Kategori')
                     ->options(fn (Get $get) => Keusubkategori::query()
                         ->where('keukategori_id', $get('keukategori_id'))
-                        ->pluck('nama', 'id')
+                        ->pluck('name', 'id')
                     )
                     ->required()
                     ->native(false),
-                    Forms\Components\TextInput::make('nomor')
-                        ->required()
-                        ->numeric(),
-                Forms\Components\TextInput::make('nama')->label('Keterangan Detil')
+                // Forms\Components\TextInput::make('nomor')
+                //     ->required()
+                //     ->unique()
+                //     ->numeric(),
+                Forms\Components\TextInput::make('name')->label('Keterangan Detil')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\DatePicker::make('tgl')
+                Forms\Components\DatePicker::make('tgl')->label('Tanggal Pembelian/Pelaksanaan')
                     ->required(),
-                Forms\Components\TextInput::make('value')
+                Forms\Components\TextInput::make('value')->label('Nominal')
                     ->required()
+                    ->prefix('IDR')
+                    ->mask(RawJs::make('$money($input)'))
+                    ->stripCharacters(',')
                     ->numeric(),
             ]);
     }
@@ -60,27 +67,33 @@ class MonetaryResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->striped()
             ->columns([
                 Tables\Columns\TextColumn::make('code')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('keukategori.nama')->label('kategori')
+                Tables\Columns\TextColumn::make('keukategori.name')->label('kategori')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('keusubkategori.nama')->label('sub-kategori')
+                Tables\Columns\TextColumn::make('keusubkategori.name')->label('sub-kategori')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('nama')->label('detil')
+                Tables\Columns\TextColumn::make('name')->label('Keterangan')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('tgl')->label('Tanggal Pelaksanaan/Pembelian')
-                    ->date($format = 'd F Y')
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('value')
-                    ->numeric()
-                    ->money('idr')
-                    // ->formatStateUsing(function (Monetary $order) {
-                    //     return 'Rp. '. $order->value;
-                    // })
-                    ->sortable(),
+                    Tables\Columns\TextColumn::make('tgl')->label('Tanggal Pembayaran')
+                        ->date($format = 'd F Y')
+                        ->sortable(),
+                    Tables\Columns\TextColumn::make('value')->label('Nominal Pengeluaran')
+                        ->numeric()
+                        ->money('idr')
+                        // ->formatStateUsing(function (Monetary $money) {
+                        //     return 'Rp. '. $money->value;
+                        // })
+                        ->Summarize(
+                            Tables\Columns\Summarizers\Sum::make()
+                            ->label('Total')
+                            ->money('idr')
+                        )
+                        ,
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -90,6 +103,13 @@ class MonetaryResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->groups([
+                Group::make('tgl')
+                ->label('Tanggal')
+                ])
+                ->defaultGroup('tgl')
+                ->groupingSettingsHidden()
+                ->defaultSort('tgl', 'desc')
             ->filters([
                 //
             ])
@@ -100,9 +120,9 @@ class MonetaryResource extends Resource
                 ])->dropdownPlacement('top-end'),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                // Tables\Actions\BulkActionGroup::make([
+                //     Tables\Actions\DeleteBulkAction::make(),
+                // ]),
             ]);
     }
 

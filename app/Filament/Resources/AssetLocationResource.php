@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class AssetLocationResource extends Resource
 {
     protected static ?string $model = AssetLocation::class;
-    protected static ?string $modelLabel = 'Asset Locations';
+    protected static ?string $pluralModelLabel = 'Lokasi Aset';
     protected static ?string $navigationLabel = 'Lokasi Aset';
     protected static ?string $navigationGroup = 'Aset / Inventaris';
     protected static ?string $navigationIcon = 'heroicon-o-bars-2';

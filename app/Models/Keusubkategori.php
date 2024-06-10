@@ -12,7 +12,7 @@ class Keusubkategori extends Model
 
     protected $fillable = [
         'keukategori_id',
-        'nama'
+        'name'
     ];
 
     public function keukategori(): BelongsTo

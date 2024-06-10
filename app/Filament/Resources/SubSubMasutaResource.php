@@ -19,8 +19,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class SubSubMasutaResource extends Resource
 {
     protected static ?string $model = SubSubMasuta::class;
-    protected static ?string $modelLabel = 'Archive Sub Sub Classification';
-    protected static ?string $navigationLabel = 'Sub Sub Klasifikasi Arsip';
+    protected static ?string $pluralModelLabel = 'sub-sub-Klasifikasi Dokumen';
+    protected static ?string $navigationLabel = 'Sub Sub Klasifikasi Dokumen';
     protected static ?string $navigationGroup = ' Kearsipan';
     protected static ?string $navigationIcon = 'heroicon-o-bars-3';
     protected static ?int $navigationSort = 4;
@@ -34,17 +34,16 @@ class SubSubMasutaResource extends Resource
                 ->relationship(name: 'masuta', titleAttribute:'name'),
                 Forms\Components\Select::make('sub_masuta_id')
                 // ->relationship(name: 'submasuta', titleAttribute:'name')
-                -> options(fn($get) => SubMasuta::query()
+                ->options(fn($get) => SubMasuta::query()
                 ->where('masuta_id', $get('masuta_id'))
                 ->pluck('name', 'id'))
                 ->native(false)
                 ->required(),
-                Forms\Components\TextInput::make('code')
-                    ->required()
-                    ->numeric(),
+                // Forms\Components\TextInput::make('id')
+                //     ->required()
+                //     ->numeric(),
                 Forms\Components\TextInput::make('name')
-                ->required()
-                    ->maxLength(255),
+                ->required(),
             ]);
     }
 
@@ -52,17 +51,21 @@ class SubSubMasutaResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('masuta.name')->label('Kode Utama')
+                Tables\Columns\TextColumn::make('masuta.id')->label('Kode')
                 ->searchable()
                 ->sortable(),
-                Tables\Columns\TextColumn::make('submasuta.code')->label('Sub-Kode')
+                Tables\Columns\TextColumn::make('submasuta.id')->label('Sub-Kode')
                 ->searchable()
                 ->sortable(),
-                Tables\Columns\TextColumn::make('code')->label('Sub-Sub-Kode')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('name')->label('Deskripsi')
-                    ->searchable(),
+                Tables\Columns\TextColumn::make('id')->label('Sub-Sub-Kode')
+                ->numeric()
+                ->sortable(),
+                Tables\Columns\TextColumn::make('masuta.name')->label('')
+                ->searchable(),
+                Tables\Columns\TextColumn::make('submasuta.name')->label('')
+                ->searchable(),
+                Tables\Columns\TextColumn::make('name')->label('')
+                ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -76,13 +79,13 @@ class SubSubMasutaResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                // Tables\Actions\ViewAction::make(),
+                // Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                // Tables\Actions\BulkActionGroup::make([
+                //     Tables\Actions\DeleteBulkAction::make(),
+                // ]),
             ]);
     }
 

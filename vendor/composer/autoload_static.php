@@ -179,6 +179,8 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         'F' => 
         array (
             'Fruitcake\\Cors\\' => 15,
+            'Flowframe\\Trend\\Database\\Factories\\' => 35,
+            'Flowframe\\Trend\\' => 16,
             'Filament\\Widgets\\' => 17,
             'Filament\\Tables\\' => 16,
             'Filament\\Support\\' => 17,
@@ -571,6 +573,14 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         array (
             0 => __DIR__ . '/..' . '/fruitcake/php-cors/src',
         ),
+        'Flowframe\\Trend\\Database\\Factories\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/flowframe/laravel-trend/database/factories',
+        ),
+        'Flowframe\\Trend\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/flowframe/laravel-trend/src',
+        ),
         'Filament\\Widgets\\' => 
         array (
             0 => __DIR__ . '/..' . '/filament/widgets/src',
@@ -872,6 +882,8 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         'App\\Filament\\Resources\\SubSubMasutaResource\\Pages\\EditSubSubMasuta' => __DIR__ . '/../..' . '/app/Filament/Resources/SubSubMasutaResource/Pages/EditSubSubMasuta.php',
         'App\\Filament\\Resources\\SubSubMasutaResource\\Pages\\ListSubSubMasutas' => __DIR__ . '/../..' . '/app/Filament/Resources/SubSubMasutaResource/Pages/ListSubSubMasutas.php',
         'App\\Filament\\Resources\\SubSubMasutaResource\\Pages\\ViewSubSubMasuta' => __DIR__ . '/../..' . '/app/Filament/Resources/SubSubMasutaResource/Pages/ViewSubSubMasuta.php',
+        'App\\Filament\\Widgets\\AssetChart' => __DIR__ . '/../..' . '/app/Filament/Widgets/AssetChart.php',
+        'App\\Filament\\Widgets\\StatsAdminOverview' => __DIR__ . '/../..' . '/app/Filament/Widgets/StatsAdminOverview.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\MonetaryController' => __DIR__ . '/../..' . '/app/Http/Controllers/MonetaryController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
@@ -1031,9 +1043,10 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         'DanHarrin\\LivewireRateLimiting\\Exceptions\\TooManyRequestsException' => __DIR__ . '/..' . '/danharrin/livewire-rate-limiting/src/Exceptions/TooManyRequestsException.php',
         'DanHarrin\\LivewireRateLimiting\\WithRateLimiting' => __DIR__ . '/..' . '/danharrin/livewire-rate-limiting/src/WithRateLimiting.php',
         'Database\\Factories\\UserFactory' => __DIR__ . '/../..' . '/database/factories/UserFactory.php',
-        'Database\\Seeders\\Archive' => __DIR__ . '/../..' . '/database/seeders/Archive.php',
+        'Database\\Seeders\\ArchiveSeeder' => __DIR__ . '/../..' . '/database/seeders/ArchiveSeeder.php',
         'Database\\Seeders\\DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeders/DatabaseSeeder.php',
         'Database\\Seeders\\KlasifikasiArsip' => __DIR__ . '/../..' . '/database/seeders/KlasifikasiArsip.php',
+        'Database\\Seeders\\MonetarySeeder' => __DIR__ . '/../..' . '/database/seeders/MonetarySeeder.php',
         'DateError' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateError.php',
         'DateException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateException.php',
         'DateInvalidOperationException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateInvalidOperationException.php',
@@ -2966,6 +2979,13 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         'Filament\\Widgets\\Widget' => __DIR__ . '/..' . '/filament/widgets/src/Widget.php',
         'Filament\\Widgets\\WidgetConfiguration' => __DIR__ . '/..' . '/filament/widgets/src/WidgetConfiguration.php',
         'Filament\\Widgets\\WidgetsServiceProvider' => __DIR__ . '/..' . '/filament/widgets/src/WidgetsServiceProvider.php',
+        'Flowframe\\Trend\\Adapters\\AbstractAdapter' => __DIR__ . '/..' . '/flowframe/laravel-trend/src/Adapters/AbstractAdapter.php',
+        'Flowframe\\Trend\\Adapters\\MySqlAdapter' => __DIR__ . '/..' . '/flowframe/laravel-trend/src/Adapters/MySqlAdapter.php',
+        'Flowframe\\Trend\\Adapters\\PgsqlAdapter' => __DIR__ . '/..' . '/flowframe/laravel-trend/src/Adapters/PgsqlAdapter.php',
+        'Flowframe\\Trend\\Adapters\\SqliteAdapter' => __DIR__ . '/..' . '/flowframe/laravel-trend/src/Adapters/SqliteAdapter.php',
+        'Flowframe\\Trend\\Trend' => __DIR__ . '/..' . '/flowframe/laravel-trend/src/Trend.php',
+        'Flowframe\\Trend\\TrendServiceProvider' => __DIR__ . '/..' . '/flowframe/laravel-trend/src/TrendServiceProvider.php',
+        'Flowframe\\Trend\\TrendValue' => __DIR__ . '/..' . '/flowframe/laravel-trend/src/TrendValue.php',
         'Fruitcake\\Cors\\CorsService' => __DIR__ . '/..' . '/fruitcake/php-cors/src/CorsService.php',
         'Fruitcake\\Cors\\Exceptions\\InvalidOptionException' => __DIR__ . '/..' . '/fruitcake/php-cors/src/Exceptions/InvalidOptionException.php',
         'GrahamCampbell\\ResultType\\Error' => __DIR__ . '/..' . '/graham-campbell/result-type/src/Error.php',

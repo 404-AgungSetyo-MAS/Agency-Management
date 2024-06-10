@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Widgets\MonetaryChart;
 use Filament\Pages\Page;
 use Filament\Actions\Action;
 use Filament\Widgets\StatsOverviewWidget;
@@ -26,12 +27,10 @@ class Monetary_Home extends Page
     // }
 
 
-    // protected function getHeaderWidgets(): array
-    // {
-    //     return [
-    //         StatsOverviewWidget::make([
-    //             'status' => 'active',
-    //         ]),
-    //     ];
-    // }
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            MonetaryChart::class,
+        ];
+    }
 }

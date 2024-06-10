@@ -12,6 +12,7 @@
         "akaunting/laravel-module": "^4.0",
         "akaunting/laravel-money": "^5.2",
         "filament/filament": "^3.2",
+        "flowframe/laravel-trend": "^0.2.0",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",

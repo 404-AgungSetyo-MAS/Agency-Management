@@ -1,7 +1,4 @@
 <x-filament-panels::page>
-    <button class="bg-blue-500 hover:bg-blue-700 text-red-500 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-        Create Monetary
-    </button>
 
     <div class=" py-24 sm:py-32">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">

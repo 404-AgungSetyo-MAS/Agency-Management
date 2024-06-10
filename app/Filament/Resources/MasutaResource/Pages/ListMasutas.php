@@ -13,7 +13,7 @@ class ListMasutas extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()->label('Klasifikasi Dokumen Baru'),
         ];
     }
 }

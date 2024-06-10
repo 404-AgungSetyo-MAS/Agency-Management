@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class AssetSubTypeResource extends Resource
 {
     protected static ?string $model = AssetSubType::class;
-    protected static ?string $modelLabel = 'Asset Sub-Types';
+    protected static ?string $pluralModelLabel = 'sub-Tipe Aset';
     protected static ?string $navigationLabel = 'Sub Tipe Aset';
     protected static ?string $navigationGroup = 'Aset / Inventaris';
     protected static ?string $navigationIcon = 'heroicon-o-bars-4';

@@ -16,8 +16,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class SubMasutaResource extends Resource
 {
     protected static ?string $model = SubMasuta::class;
-    protected static ?string $modelLabel = 'Archive Sub Classification';
-    protected static ?string $navigationLabel = 'Sub Klasifikasi Arsip';
+    protected static ?string $pluralModelLabel = 'sub-Klasifikasi Dokumen';
+    protected static ?string $navigationLabel = 'Sub Klasifikasi Dokumen';
     protected static ?string $navigationGroup = ' Kearsipan';
     protected static ?string $navigationIcon = 'heroicon-o-bars-2';
     protected static ?int $navigationSort = 3;
@@ -31,10 +31,10 @@ class SubMasutaResource extends Resource
                     ->relationship(name: 'masuta', titleAttribute:'name')
                     ->preload()
                     ,
-                Forms\Components\TextInput::make('code')
-                    ->required()
-                    ->mask('99')
-                    ->numeric(),
+                // Forms\Components\TextInput::make('code')
+                //     ->required()
+                //     ->mask('99')
+                //     ->numeric(),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
@@ -45,15 +45,16 @@ class SubMasutaResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('masuta.name')->label('Kode Utama')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('masuta.id')->label('Kode Utama')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('code')->label('Sub-Kode')
+                Tables\Columns\TextColumn::make('id')->label('Sub-Kode')
                     // ->formatStateUsing( fn (SubMasuta $code) => $code)
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('name')->label('Keterangan')
+                Tables\Columns\TextColumn::make('masuta.name')->label('')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('name')->label('')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -63,18 +64,18 @@ class SubMasutaResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-            ])->defaultSort('masuta.name')
+            ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                // Tables\Actions\ViewAction::make(),
+                // Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                // Tables\Actions\BulkActionGroup::make([
+                //     Tables\Actions\DeleteBulkAction::make(),
+                // ]),
             ]);
     }
 

@@ -14,6 +14,7 @@ use Filament\Forms\Get;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -21,7 +22,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class InventoryAssetResource extends Resource
 {
     protected static ?string $model = InventoryAsset::class;
-    protected static ?string $modelLabel = 'Barang - barang Inventaris';
+    protected static ?string $pluralModelLabel = 'Aset dan Inventaris';
     protected static ?string $navigationLabel = 'Data Barang / Aset';
     protected static ?string $navigationGroup = 'Aset / Inventaris';
     protected static ?string $navigationIcon = 'heroicon-o-home-modern';
@@ -31,9 +32,13 @@ class InventoryAssetResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('img')
-                    ->maxLength(255)
-                    ->default(null),
+                Forms\Components\FileUpload::make('img')
+                    ->default(null)
+                    ->image()
+                    ->imagePreviewHeight('250')
+                    ->multiple()
+                    ->disk('public')
+                    ->directory('images/aset'),
                 Forms\Components\Select::make('asset_clasification_id')
                     ->required()
                     ->relationship(name:'assetclasification', titleAttribute:'nama')
@@ -84,7 +89,7 @@ class InventoryAssetResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('code')->label('Kode Aset')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('img')->label('Foto')
+                Tables\Columns\ImageColumn::make('img')->label('Foto')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('tgl')->label('Tanggal Masuk')
                     ->date('d-m-Y')
@@ -115,7 +120,12 @@ class InventoryAssetResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-            ])->defaultGroup('assetlocation.nama')
+            ])
+            // ->defaultGroup('assetlocation.nama')
+            ->groups([
+                Group::make('assetlocation.nama')
+                    ->label('Lokasi')
+            ])
             ->filters([
                 //
             ])

@@ -18,7 +18,7 @@ return new class extends Migration
         Schema::create('sub_masutas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('masuta_id')->constrained()->cascadeOnDelete();
-            $table->unsignedBigInteger('code')->unique();
+            // $table->unsignedBigInteger('code')->unique();
             $table->string('name')->unique();
             $table->timestamps();
         });
@@ -27,7 +27,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('masuta_id')->constrained()->cascadeOnDelete();
             $table->foreignId('sub_masuta_id')->constrained()->cascadeOnDelete();
-            $table->unsignedBigInteger('code')->unique();
+            // $table->unsignedBigInteger('code')->unique();
             $table->string('name')->unique();
             $table->timestamps();
         });

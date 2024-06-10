@@ -43,7 +43,7 @@ class EmployeeResource extends Resource
                         // ->removeUploadedFileButtonPosition('right')
                         // ->uploadButtonPosition('left')
                         // ->uploadProgressIndicatorPosition('left')
-                        ->maxSize(2048)
+                        // ->maxSize(2048)
                         ->disk('public')
                         ->directory('images/pegawai'),
                 ]),
@@ -79,17 +79,20 @@ class EmployeeResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+        ->striped()
             ->columns([
-                Tables\Columns\ImageColumn::make('img')
+                Tables\Columns\ImageColumn::make('img')->label('')
                     ->rounded(),
                 Tables\Columns\TextColumn::make('nama_lengkap')
                     ->sortable()
                     ->searchable(),
+                Tables\Columns\TextColumn::make('email')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('tempat_lahir')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('tgl_lahir')
-                    ->date(),
+                Tables\Columns\TextColumn::make('tgl_lahir')->label('Tanggal Lahir')
+                    ->date('d-m-Y'),
                 Tables\Columns\TextColumn::make('jenis_kelamin')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('agama')
@@ -97,16 +100,6 @@ class EmployeeResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('nomor_telepon')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('email')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
@@ -131,13 +124,28 @@ class EmployeeResource extends Resource
     {
         return $infolist
             ->schema([
-                ImageEntry::make('img')->label('')
-                ->size(250),
-                // InfoSection::make('Foto Profil')
-                // ->columnSpan(1)
-                // ->schema([
-                    TextEntry::make('img'),
-                // ]),
+                InfoSection::make('Foto Pegawai')
+                ->description('detail data pegawai')
+                ->columnSpan(1)
+                ->schema([
+                    ImageEntry::make('img')->label('')
+                    ->square()
+                    ->width(350)
+                    ->height(350),
+                ]),
+                InfoSection::make('Profil Pegawai')
+                ->columnSpan(1)
+                ->schema([
+                    TextEntry::make('nama_lengkap')->columnSpan(2),
+                    TextEntry::make('tempat_lahir'),
+                    TextEntry::make('tgl_lahir')->label('Tanggal Lahir'),
+                    TextEntry::make('jenis_kelamin'),
+                    TextEntry::make('agama'),
+                    TextEntry::make('nomor_telepon'),
+                    TextEntry::make('email'),
+                    // TextEntry::make('created_at'),
+                    // TextEntry::make('updated_at'),
+                ]),
             ]);
     }
 

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,10 +15,16 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        \App\Models\User::factory()->create([
+        User::factory()->create([
             'name' => 'admin',
             'email' => 'admin@example.com',
             'password' => 'admin',
+        ]);
+
+        $this->call([
+            ArchiveSeeder::class,
+            AssetSeeder::class,
+            MonetarySeeder::class
         ]);
     }
 }

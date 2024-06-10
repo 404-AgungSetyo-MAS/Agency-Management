@@ -18,13 +18,13 @@ return new class extends Migration
         });
         Schema::create("keukategoris", function (Blueprint $table) {
             $table->id();
-            $table->string('nama')->unique();
+            $table->string('name')->unique()->default('');
             $table->timestamps();
         });
         Schema::create("keusubkategoris", function (Blueprint $table) {
             $table->id();
             $table->foreignId('keukategori_id')->constrained()->cascadeOnDelete();
-            $table->string('nama')->unique();
+            $table->string('name')->unique()->default('');
             $table->timestamps();
         });
     }

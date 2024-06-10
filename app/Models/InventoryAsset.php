@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
 
 class InventoryAsset extends Model
 {
@@ -21,6 +22,26 @@ class InventoryAsset extends Model
         'description',
         'status'
     ];
+
+    protected $cast =[
+        'img' => 'array'
+    ];
+
+    protected static function booted():void
+    {
+        static::deleted(function (InventoryAsset $aset) {
+            foreach($aset->img as $image) {
+                Storage::delete($image);
+            }
+        });
+        static::updating(function (InventoryAsset $aset) {
+
+            $filesToDelete = array_diff($aset->getOriginal('img'), $aset->img);
+            foreach($filesToDelete as $file) {
+                Storage::delete($file);
+            }
+        });
+    }
 
     public function assetClasification(): BelongsTo
     {

@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class ArchiveResource extends Resource
 {
     protected static ?string $model = Archive::class;
-    protected static ?string $modelLabel = 'Archives';
+    protected static ?string $pluralModelLabel = 'Kumpulan Dokumen';
     protected static ?string $navigationLabel = 'Data - data Dokumen';
     protected static ?string $navigationGroup = ' Kearsipan';
     protected static ?string $navigationIcon = 'heroicon-o-inbox-stack';
@@ -77,12 +77,26 @@ class ArchiveResource extends Resource
                         ->placeholder('Contoh : 2024')
                         ->required(),
                 ])->columns(2),
-                Forms\Components\TextInput::make('nama')->label('Nama Dokumen')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('file')
-                    ->required()
-                    ->maxLength(255),
+                Forms\Components\section::make('Detail Dokumen')->schema([
+                    Forms\Components\TextInput::make('nama')->label('Nama Dokumen')
+                        ->required()
+                        ->maxLength(255),
+                    Forms\Components\Select::make('status')
+                        ->options([
+                            'Tidak Butuh Tanda Tangan',
+                            'Butuh Tanda Tangan',
+                            'Dokumen Lengkap',
+                            'Dokumen Ditolak',
+                        ]),
+                    Forms\Components\FileUpload::make('file')
+                    ->acceptedFileTypes([
+                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                        'application/pdf',
+                        'image/jpeg',
+                        'image/png',
+                        'image/bmp',
+                        ])
+                ])->columns(2),
             ]);
     }
 
@@ -100,9 +114,14 @@ class ArchiveResource extends Resource
                     //     return $order->subMasuta->code .'.'. $order->subSubMasuta->code .'.'. $order->id;
                     // })
                     ,
-
                 Tables\Columns\TextColumn::make('nama')
-                    ->searchable(),
+                ->searchable(),
+                Tables\Columns\Layout\Split::make([
+                    Tables\Columns\TextColumn::make('status')
+                        ->searchable(),
+                    Tables\Columns\TextColumn::make('detil status')
+                        ->searchable(),
+                ]),
                 Tables\Columns\TextColumn::make('file')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')

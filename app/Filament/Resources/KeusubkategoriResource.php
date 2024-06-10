@@ -29,12 +29,11 @@ class KeusubkategoriResource extends Resource
             ->schema([
                 Forms\Components\Select::make('keukategori_id')
                     ->required()
-                    ->relationship(name:'keukategori', titleAttribute:'nama')
+                    ->relationship(name:'keukategori', titleAttribute:'name')
                     ->preload()
                     ->native(false),
-                Forms\Components\TextInput::make('nama')
-                    ->required()
-                    ->maxLength(255),
+                Forms\Components\TextInput::make('name')
+                    ->required(),
             ]);
     }
 
@@ -42,9 +41,9 @@ class KeusubkategoriResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('keukategori.nama')
+                Tables\Columns\TextColumn::make('keukategori.name')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('nama')
+                Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -54,18 +53,19 @@ class KeusubkategoriResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-            ])->defaultSort('keukategori.nama')
+            ])
+            // ->defaultSort('keukategori.name')
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                // Tables\Actions\ViewAction::make(),
+                // Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                // Tables\Actions\BulkActionGroup::make([
+                //     Tables\Actions\DeleteBulkAction::make(),
+                // ]),
             ]);
     }
 

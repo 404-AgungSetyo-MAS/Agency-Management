@@ -19,3 +19,7 @@ Route::get('/', function () {
 });
 
 Route::resource('Monetaries', MonetaryController::class);
+
+Route::get('/login', function () {
+    return redirect(route('filament.admin.auth.login'));
+})->name('login');

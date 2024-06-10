@@ -16,8 +16,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class MasutaResource extends Resource
 {
     protected static ?string $model = Masuta::class;
-    protected static ?string $modelLabel = 'Archive Classification';
-    protected static ?string $navigationLabel = 'Klasifikasi Arsip';
+    protected static ?string $pluralModelLabel = 'Klasifikasi Dokumen';
+    protected static ?string $navigationLabel = 'Klasifikasi Dokumen';
     protected static ?string $navigationGroup = ' Kearsipan';
     protected static ?string $navigationIcon = 'heroicon-o-ellipsis-horizontal';
     protected static ?int $navigationSort = 2;
@@ -48,13 +48,13 @@ class MasutaResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+            //     Tables\Actions\ViewAction::make(),
+            //     Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                // Tables\Actions\BulkActionGroup::make([
+                //     Tables\Actions\DeleteBulkAction::make(),
+                // ]),
             ]);
     }
 
