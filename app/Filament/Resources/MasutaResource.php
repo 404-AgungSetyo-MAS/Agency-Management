@@ -19,7 +19,7 @@ class MasutaResource extends Resource
     protected static ?string $pluralModelLabel = 'Klasifikasi Dokumen';
     protected static ?string $navigationLabel = 'Klasifikasi Dokumen';
     protected static ?string $navigationGroup = ' Kearsipan';
-    protected static ?string $navigationIcon = 'heroicon-o-ellipsis-horizontal';
+    protected static ?string $navigationIcon = 'heroicon-o-minus';
     protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form

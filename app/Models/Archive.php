@@ -19,6 +19,9 @@ class Archive extends Model
         'sub_sub_masuta_id',
         'sub_sub_masuta_nama',
         'nama',
+        'statusdoc_id',
+        'detil_status',
+        'keterangan_status',
         'file',
     ];
 
@@ -36,6 +39,10 @@ class Archive extends Model
     {
         // return $this->belongsTo(SubSubMasuta::class);
         return $this->belongsTo(SubSubMasuta::class)->select(array('id', 'code'));
+    }
+    public function statusdoc(): BelongsTo
+    {
+        return $this->belongsTo(Statusdoc::class);
     }
 
     // protected $table = 'archive';
