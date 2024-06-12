@@ -10,6 +10,9 @@ class Employee extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        "img" => "array",
+    ];
     protected $fillable = [
         "img",
         "nama_lengkap",
@@ -21,22 +24,19 @@ class Employee extends Model
         "email",
     ];
 
-    protected $casts = [
-        "img" => "array",
-    ];
 
     protected static function booted():void
     {
         static::deleted(function (Employee $pegawai) {
-            foreach($pegawai->img as $image) {
-                Storage::delete($image);
+            if ($pegawai->img !== null){
+                Storage::disk('pegawai')->delete($pegawai->img);
             }
         });
         static::updating(function (Employee $pegawai) {
 
-            $filesToDelete = array_diff($pegawai->getOriginal('img'), $pegawai->img);
-            foreach($filesToDelete as $file) {
-                Storage::delete($file);
+            $filesToDelete = $pegawai->getOriginal('img');
+            if ($pegawai->img !== $filesToDelete){
+                Storage::disk('pegawai')->delete($filesToDelete);
             }
         });
     }
