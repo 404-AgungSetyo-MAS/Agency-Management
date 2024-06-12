@@ -19,7 +19,7 @@ class AssetClasificationResource extends Resource
     protected static ?string $pluralModelLabel = 'Klasifikasi Aset';
     protected static ?string $navigationLabel = 'Klasifikasi Aset';
     protected static ?string $navigationGroup = 'Aset / Inventaris';
-    protected static ?string $navigationIcon = 'heroicon-o-ellipsis-horizontal';
+    protected static ?string $navigationIcon = 'heroicon-o-minus';
     protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form

@@ -17,7 +17,7 @@ class KeukategoriResource extends Resource
 {
     protected static ?string $model = Keukategori::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-ellipsis-horizontal';
+    protected static ?string $navigationIcon = 'heroicon-o-minus';
     protected static ?string $navigationGroup = 'Keuangan';
     protected static ?string $navigationLabel = 'Kategori Keuangan';
     protected static ?int $navigationSort = 2;
