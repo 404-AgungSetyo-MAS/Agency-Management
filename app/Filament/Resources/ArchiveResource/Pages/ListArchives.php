@@ -2,10 +2,12 @@
 
 namespace App\Filament\Resources\ArchiveResource\Pages;
 
+use App\Filament\Exports\ArchiveExporter;
 use App\Filament\Resources\ArchiveResource;
 use App\Models\Archive;
 use App\Models\Statusdoc;
 use Filament\Actions;
+use Filament\Actions\Exports\Enums\ExportFormat;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Resources\Pages\ListRecords\Tab;
 use Illuminate\Support\Collection;
@@ -17,7 +19,11 @@ class ListArchives extends ListRecords
     {
         return [
             Actions\CreateAction::make()->label('Dokumen Baru'),
-            Actions\ExportAction::make()->label('Export'),
+            Actions\ExportAction::make()->label('Export')
+                ->exporter(ArchiveExporter::class)
+                ->formats([
+                    ExportFormat::Xlsx,
+                ]),
         ];
     }
 

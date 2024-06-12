@@ -42,9 +42,13 @@ return new class extends Migration
             $table->foreignId('masuta_id')->constrained()->cascadeOnDelete();
             $table->foreignId('sub_masuta_id')->constrained()->cascadeOnDelete();
             $table->foreignId('sub_sub_masuta_id')->constrained()->cascadeOnDelete();
-            $table->string('full_code')->virtualAs('concat(LPAD(sub_masuta_id, 2, \'0\'), \'.\',
-                                                    LPAD(sub_sub_masuta_id, 2,\'0\'),\'.\',
-                                                    LPAD(id, 4,\'0\'), DATE_FORMAT(created_at, \'%m%y\'))');
+            $table->string('full_code')->virtualAs('concat(
+                LPAD(masuta_id, 2, \'0\'), \'.\',
+                LPAD(sub_masuta_id, 2, \'0\'), \'.\',
+                LPAD(sub_sub_masuta_id, 2,\'0\'),\'.\',
+                DATE_FORMAT(created_at, \'%m%y\'),
+                LPAD(id, 4,\'0\')
+                )');
             $table->string('nama');
             $table->foreignId('statusdoc_id')->default(0);
             $table->string('detil_status')->nullable();
