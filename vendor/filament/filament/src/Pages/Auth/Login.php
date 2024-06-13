@@ -133,6 +133,7 @@ class Login extends SimplePage
     {
         return TextInput::make('login')
         ->label('Username or Email')
+        ->extraInputAttributes(['tabindex' => 1])
         ->required();
     }
     protected function getEmailFormComponent(): Component
@@ -143,7 +144,7 @@ class Login extends SimplePage
             ->required()
             ->autocomplete()
             ->autofocus()
-            ->extraInputAttributes(['tabindex' => 1]);
+            ->extraInputAttributes(['tabindex' => 2]);
     }
 
     protected function getPasswordFormComponent(): Component
@@ -155,7 +156,7 @@ class Login extends SimplePage
             ->revealable(filament()->arePasswordsRevealable())
             ->autocomplete('current-password')
             ->required()
-            ->extraInputAttributes(['tabindex' => 2]);
+            ->extraInputAttributes(['tabindex' => 3]);
     }
 
     protected function getRememberFormComponent(): Component
