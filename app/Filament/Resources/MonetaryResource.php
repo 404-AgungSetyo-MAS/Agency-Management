@@ -46,14 +46,10 @@ class MonetaryResource extends Resource
                     )
                     ->required()
                     ->native(false),
-                // Forms\Components\TextInput::make('nomor')
-                //     ->required()
-                //     ->unique()
-                //     ->numeric(),
                 Forms\Components\TextInput::make('name')->label('Keterangan Detil')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\DatePicker::make('tgl')->label('Tanggal Pembelian/Pelaksanaan')
+                Forms\Components\DatePicker::make('tanggal')->label('Tanggal Pembelian/Pelaksanaan')
                     ->required(),
                 Forms\Components\TextInput::make('value')->label('Nominal')
                     ->required()
@@ -79,8 +75,9 @@ class MonetaryResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('name')->label('Keterangan')
                     ->searchable(),
-                    Tables\Columns\TextColumn::make('tgl')->label('Tanggal Pembayaran')
-                        ->date($format = 'd F Y')
+                    Tables\Columns\TextColumn::make('tanggal')->label('Tanggal Pembayaran')
+                        ->date('d-m-Y')
+                        ->alignCenter()
                         ->sortable(),
                     Tables\Columns\TextColumn::make('value')->label('Nominal Pengeluaran')
                         ->numeric()
@@ -88,11 +85,11 @@ class MonetaryResource extends Resource
                         // ->formatStateUsing(function (Monetary $money) {
                         //     return 'Rp. '. $money->value;
                         // })
-                        ->Summarize(
-                            Tables\Columns\Summarizers\Sum::make()
-                            ->label('Total')
-                            ->money('idr')
-                        )
+                        // ->Summarize(
+                        //     Tables\Columns\Summarizers\Sum::make()
+                        //     ->label('Total')
+                        //     ->money('idr')
+                        // )
                         ,
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -103,13 +100,13 @@ class MonetaryResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->groups([
-                Group::make('tgl')
-                ->label('Tanggal')
-                ])
-                ->defaultGroup('tgl')
-                ->groupingSettingsHidden()
-                ->defaultSort('tgl', 'desc')
+            // ->groups([
+            //     Group::make('tanggal')
+            //     ->label('Tanggal')
+            //     ])
+                ->defaultGroup('tanggal')
+                // ->groupingSettingsHidden()
+                ->defaultSort('tanggal', 'desc')
             ->filters([
                 //
             ])

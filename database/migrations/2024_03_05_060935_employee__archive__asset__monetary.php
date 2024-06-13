@@ -75,7 +75,7 @@ return new class extends Migration
             $table->date('tanggal');
             $table->string('nama');
             $table->string('description');
-            $table->json('status');
+            $table->string('statusaset');
             $table->timestamps();
         });
         Schema::create('monetaries', function (Blueprint $table) {

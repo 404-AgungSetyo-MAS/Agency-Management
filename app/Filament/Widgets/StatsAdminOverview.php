@@ -20,7 +20,7 @@ class StatsAdminOverview extends BaseWidget
             Stat::make('Barang dan Aset', InventoryAsset::query()->count())
             ->description('Total Barang dan Aset')
             ->color('success'),
-            Stat::make('Keuangan', Monetary::query()->whereYear('tgl', Carbon::parse(Carbon::now()))->sum('value'))
+            Stat::make('Keuangan', Monetary::query()->whereYear('tanggal', Carbon::parse(Carbon::now()))->sum('value'))
             ->label('')
             ->description('Total Pengeluaran Tahun ini')
             ->chart([7, 2, 10, 17, 15, 4, 17])

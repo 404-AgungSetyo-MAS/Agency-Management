@@ -37,6 +37,7 @@ class InventoryAssetResource extends Resource
                     ->image()
                     ->imagePreviewHeight('250')
                     ->multiple()
+                    ->reorderable()
                     ->disk('public')
                     ->directory('images/aset'),
                 Forms\Components\Select::make('asset_clasification_id')
@@ -69,7 +70,7 @@ class InventoryAssetResource extends Resource
                     ->native(false)
                     ->preload()
                     ->nullable(),
-                Forms\Components\DatePicker::make('tgl')
+                Forms\Components\DatePicker::make('tanggal')
                     ->required(),
                 Forms\Components\TextInput::make('nama')
                     ->required()
@@ -77,9 +78,8 @@ class InventoryAssetResource extends Resource
                 Forms\Components\TextInput::make('description')
                     ->nullable()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('status')
-                    ->required()
-                    ->maxLength(255),
+                Forms\Components\TextInput::make('statusaset')
+                    ->required(),
             ]);
     }
 
@@ -90,8 +90,12 @@ class InventoryAssetResource extends Resource
                 Tables\Columns\TextColumn::make('code')->label('Kode Aset')
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('img')->label('Foto')
+                    ->stacked()
+                    ->square()
+                    ->limit(3)
+                    ->checkFileExistence(false)
                     ->searchable(),
-                Tables\Columns\TextColumn::make('tgl')->label('Tanggal Masuk')
+                Tables\Columns\TextColumn::make('tanggal')->label('Tanggal Masuk')
                     ->date('d-m-Y')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('assetclasification.nama')->label('Klasifikasi Aset')
@@ -110,13 +114,13 @@ class InventoryAssetResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('description')->label('Deskripsi')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('status')
+                Tables\Columns\TextColumn::make('statusaset')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
+                Tables\Columns\TextColumn::make('created_at')->label('Tanggal Data Dimasukkan')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                Tables\Columns\TextColumn::make('updated_at')->label('Terakhir di update')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -130,13 +134,16 @@ class InventoryAssetResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ])
             ])
             ->bulkActions([
-                // Tables\Actions\BulkActionGroup::make([
-                //     Tables\Actions\DeleteBulkAction::make(),
-                // ]),
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
             ]);
     }
 

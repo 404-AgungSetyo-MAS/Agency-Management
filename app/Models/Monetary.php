@@ -15,7 +15,7 @@ class Monetary extends Model
         'keukategori_id',
         'keusubkategori_id',
         'name',
-        'tgl',
+        'tanggal',
         'nomor',
         'value'
     ];

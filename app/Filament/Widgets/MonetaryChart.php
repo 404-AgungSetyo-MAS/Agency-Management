@@ -3,7 +3,6 @@
 namespace App\Filament\Widgets;
 
 use App\Models\Monetary;
-use Carbon\Carbon;
 use Filament\Support\RawJs;
 use Filament\Widgets\ChartWidget;
 use Flowframe\Trend\Trend;
@@ -17,7 +16,7 @@ class MonetaryChart extends ChartWidget
     protected function getData(): array
     {
             $data = Trend::model(Monetary::class)
-            ->dateColumn('tgl')
+            ->dateColumn('tanggal')
             ->between(
                 start: now()->startOfYear(),
                 end: now()->endOfYear(),

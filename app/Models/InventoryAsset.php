@@ -16,14 +16,13 @@ class InventoryAsset extends Model
         'asset_type_id',
         'asset_sub_type_id',
         'asset_location_id',
-        'tgl',
+        'tanggal',
         'nama',
-        'qty',
         'description',
-        'status'
+        'statusaset',
     ];
 
-    protected $cast =[
+    protected $casts =[
         'img' => 'array'
     ];
 
@@ -31,14 +30,14 @@ class InventoryAsset extends Model
     {
         static::deleted(function (InventoryAsset $aset) {
             foreach($aset->img as $image) {
-                Storage::delete($image);
+                Storage::disk('public')->delete($image);
             }
         });
         static::updating(function (InventoryAsset $aset) {
 
             $filesToDelete = array_diff($aset->getOriginal('img'), $aset->img);
             foreach($filesToDelete as $file) {
-                Storage::delete($file);
+                Storage::disk('public')->delete($file);
             }
         });
     }
