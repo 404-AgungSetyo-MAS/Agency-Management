@@ -75,7 +75,7 @@ return new class extends Migration
             $table->date('tanggal');
             $table->string('nama');
             $table->string('description');
-            $table->string('statusaset');
+            $table->foreignId('statusaset_id')->default(0);
             $table->timestamps();
         });
         Schema::create('monetaries', function (Blueprint $table) {

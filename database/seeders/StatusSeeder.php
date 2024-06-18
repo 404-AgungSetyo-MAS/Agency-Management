@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Statusaset;
 use App\Models\Statusdoc;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -27,6 +28,19 @@ class StatusSeeder extends Seeder
         //3
         Statusdoc::insert([
             'name' => 'Dokumen Lengkap',
+        ]);
+
+        Statusaset::insert([
+            'name' => 'Baik',
+        ]);
+        Statusaset::insert([
+            'name' => 'Perawatan',
+        ]);
+        Statusaset::insert([
+            'name' => 'Rusak/tidak dapat digunakan',
+        ]);
+        Statusaset::insert([
+            'name' => 'Tidak ada/sudah ganti',
         ]);
     }
 }

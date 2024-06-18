@@ -32,15 +32,7 @@ class InventoryAssetResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\FileUpload::make('img')
-                    ->default(null)
-                    ->image()
-                    ->imagePreviewHeight('250')
-                    ->multiple()
-                    ->reorderable()
-                    ->disk('public')
-                    ->directory('images/aset'),
-                Forms\Components\Select::make('asset_clasification_id')
+                Forms\Components\Select::make('asset_clasification_id')->label('Klasifikasi Aset')
                     ->required()
                     ->relationship(name:'assetclasification', titleAttribute:'nama')
                     ->afterStateUpdated(function ($set) {
@@ -49,7 +41,7 @@ class InventoryAssetResource extends Resource
                     })
                     ->preload()
                     ->native(false),
-                Forms\Components\Select::make('asset_type_id')
+                Forms\Components\Select::make('asset_type_id')->label('Tipe Aset')
                     ->options(fn (Get $get) => AssetType::query()
                         ->where('asset_clasification_id', $get('asset_clasification_id'))
                         ->pluck('nama', 'id')
@@ -58,28 +50,41 @@ class InventoryAssetResource extends Resource
                     })
                     ->required()
                     ->native(false),
-                Forms\Components\Select::make('asset_sub_type_id')
+                Forms\Components\Select::make('asset_sub_type_id')->label('Sub Tipe Aset')
                     ->options(fn (Get $get) => AssetSubType::query()
                         ->where('asset_type_id', $get('asset_type_id'))
                         ->pluck('nama', 'id')
                     )
                     ->required()
                     ->native(false),
-                Forms\Components\Select::make('asset_location_id')
+                Forms\Components\Select::make('asset_location_id')->label('Lokasi Aset')
                     ->relationship(name:'assetlocation', titleAttribute:'nama')
                     ->native(false)
                     ->preload()
                     ->nullable(),
-                Forms\Components\DatePicker::make('tanggal')
+                Forms\Components\DatePicker::make('tanggal')->label('Tanggal Masuk')
+                    ->default(now())
                     ->required(),
                 Forms\Components\TextInput::make('nama')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('description')
+                Forms\Components\TextInput::make('description')->label('Deskripsi detil')
                     ->nullable()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('statusaset')
-                    ->required(),
+                Forms\Components\Select::make('statusaset')->label('Status')
+                    ->native(false)
+                    ->relationship(name:'statusaset', titleAttribute:'name'),
+                Forms\Components\Section::make()
+                ->schema([
+                    Forms\Components\FileUpload::make('img')->label('')
+                        ->default(null)
+                        ->image()
+                        ->imagePreviewHeight('250')
+                        ->multiple()
+                        ->reorderable()
+                        ->disk('public')
+                        ->directory('images/aset'),
+                ]),
             ]);
     }
 
@@ -114,7 +119,13 @@ class InventoryAssetResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('description')->label('Deskripsi')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('statusaset')
+                Tables\Columns\TextColumn::make('statusaset.name')
+                    ->icon(fn (string $state): string => match ($state) {
+                        'Tidak Butuh Tanda Tangan' => '',
+                        // 'Butuh Tanda Tangan' => 'heroicon-o-pencil',
+                        // 'Butuh Perbaikkan' => 'heroicon-o-clock',
+                        // 'Dokumen Lengkap' => 'heroicon-o-check-circle',
+                    })
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')->label('Tanggal Data Dimasukkan')
                     ->dateTime()
@@ -125,7 +136,7 @@ class InventoryAssetResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            // ->defaultGroup('assetlocation.nama')
+            ->defaultGroup('assetlocation.nama')
             ->groups([
                 Group::make('assetlocation.nama')
                     ->label('Lokasi')
@@ -143,6 +154,7 @@ class InventoryAssetResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\ExportBulkAction::make(),
                 ]),
             ]);
     }

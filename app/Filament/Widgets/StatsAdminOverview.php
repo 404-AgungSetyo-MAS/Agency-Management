@@ -24,6 +24,10 @@ class StatsAdminOverview extends BaseWidget
             ->label('')
             ->description('Total Pengeluaran Tahun ini')
             ->chart([7, 2, 10, 17, 15, 4, 17])
+            ->color('danger'),
+            Stat::make('Keuangan', Monetary::query()->whereMonth('tanggal', Carbon::parse(Carbon::now()))->sum('value'))
+            ->label('')
+            ->description('Total Pengeluaran Bulan ini')
             ->color('warning'),
         ];
     }

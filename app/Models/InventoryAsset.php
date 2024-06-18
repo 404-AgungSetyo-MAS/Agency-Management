@@ -19,7 +19,7 @@ class InventoryAsset extends Model
         'tanggal',
         'nama',
         'description',
-        'statusaset',
+        'statusaset_id',
     ];
 
     protected $casts =[
@@ -57,5 +57,9 @@ class InventoryAsset extends Model
     public function assetLocation(): BelongsTo
     {
         return $this->belongsTo(AssetLocation::class);
+    }
+    public function statusaset(): BelongsTo
+    {
+        return $this->belongsTo(Statusaset::class);
     }
 }

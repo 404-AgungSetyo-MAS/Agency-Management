@@ -50,6 +50,7 @@ class MonetaryResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Forms\Components\DatePicker::make('tanggal')->label('Tanggal Pembelian/Pelaksanaan')
+                    ->default(now())
                     ->required(),
                 Forms\Components\TextInput::make('value')->label('Nominal')
                     ->required()
