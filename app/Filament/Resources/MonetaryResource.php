@@ -64,7 +64,7 @@ class MonetaryResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->striped()
+            // ->striped()
             ->columns([
                 Tables\Columns\TextColumn::make('code')
                     ->searchable(),
@@ -79,10 +79,11 @@ class MonetaryResource extends Resource
                     Tables\Columns\TextColumn::make('tanggal')->label('Tanggal Pembayaran')
                         ->date('d-m-Y')
                         ->alignCenter()
-                        ->sortable(),
+                        ->sortable()
+                        ->toggleable(isToggledHiddenByDefault: true),
                     Tables\Columns\TextColumn::make('value')->label('Nominal Pengeluaran')
                         ->numeric()
-                        ->money('idr')
+                        ->prefix('Rp. ')
                         // ->formatStateUsing(function (Monetary $money) {
                         //     return 'Rp. '. $money->value;
                         // })

@@ -3,6 +3,7 @@
 namespace App\Filament\Widgets;
 
 use App\Models\Monetary;
+use App\Models\Monetarytarget;
 use Filament\Support\RawJs;
 use Filament\Widgets\ChartWidget;
 use Flowframe\Trend\Trend;
@@ -24,14 +25,14 @@ class MonetaryChart extends ChartWidget
             ->perMonth()
             ->sum('value');
 
-            $datatarget = Trend::model(Monetary::class)
-            ->dateColumn('tanggal')
+            $datatarget = Trend::model(Monetarytarget::class)
+            ->dateColumn('tanggal_target')
             ->between(
                 start: now()->startOfYear(),
                 end: now()->endOfYear(),
             )
             ->perMonth()
-            ->sum('value');
+            ->sum('nominal');
 
         return [
             'datasets' => [
@@ -39,13 +40,13 @@ class MonetaryChart extends ChartWidget
                     'label' => 'Pengeluaran Bulan ini',
                     'data' => $datamoneyout->map(fn (TrendValue $value) => $value->aggregate),
                     'backgroundColor' => '#c72e2e',
-                    'borderColor' => '#000000',
+                    'borderColor' => '#c72e2e',
                 ],
                 [
                     'label' => 'Target Pengeluaran',
                     'data' => $datatarget->map(fn (TrendValue $value) => $value->aggregate),
                     'backgroundColor' => '#2e96c7',
-                    'borderColor' => '#000000',
+                    'borderColor' => '#2e96c7',
                 ]
             ],
             'labels' => $datamoneyout->map(fn (TrendValue $value) => $value->date),
@@ -54,7 +55,7 @@ class MonetaryChart extends ChartWidget
 
     protected function getType(): string
     {
-        return 'bar';
+        return 'line';
     }
 
     protected function getOptions(): RawJs
