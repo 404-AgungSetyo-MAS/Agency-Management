@@ -12,6 +12,10 @@ use App\Models\AssetType;
 use Filament\Forms;
 use Filament\Forms\Get;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\ImageEntry;
+use Filament\Infolists\Components\Section as InfoSection;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Grouping\Group;
@@ -80,8 +84,15 @@ class InventoryAssetResource extends Resource
                         ->default(null)
                         ->image()
                         ->imagePreviewHeight('250')
+                        ->imageEditor()
+                        ->imageEditorAspectRatios([
+                            '16:9',
+                            '4:3',
+                            '1:1',
+                        ])
                         ->multiple()
                         ->reorderable()
+                        ->openable()
                         ->disk('public')
                         ->directory('images/aset'),
                 ]),
@@ -96,12 +107,12 @@ class InventoryAssetResource extends Resource
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('img')->label('Foto')
                     ->stacked()
-                    ->square()
                     ->limit(3)
                     ->checkFileExistence(false)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('tanggal')->label('Tanggal Masuk')
                     ->date('d-m-Y')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('assetclasification.nama')->label('Klasifikasi Aset')
                     ->toggleable(isToggledHiddenByDefault: true)
@@ -118,13 +129,20 @@ class InventoryAssetResource extends Resource
                 Tables\Columns\TextColumn::make('nama')->label('Nama Aset')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('description')->label('Deskripsi')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('statusaset.name')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('statusaset.name')->label('Status')
+                    ->color(fn (string $state): string => match ($state) {
+                        'Baik' => 'success',
+                        'Perawatan' => 'warning',
+                        'Rusak/tidak dapat digunakan' => 'danger',
+                        'Tidak ada/sudah ganti' => 'danger',
+                    })
                     ->icon(fn (string $state): string => match ($state) {
-                        'Tidak Butuh Tanda Tangan' => '',
-                        // 'Butuh Tanda Tangan' => 'heroicon-o-pencil',
-                        // 'Butuh Perbaikkan' => 'heroicon-o-clock',
-                        // 'Dokumen Lengkap' => 'heroicon-o-check-circle',
+                        'Baik' => 'heroicon-o-check-circle',
+                        'Perawatan' => 'heroicon-o-clock',
+                        'Rusak/tidak dapat digunakan' => '',
+                        'Tidak ada/sudah ganti' => '',
                     })
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')->label('Tanggal Data Dimasukkan')
@@ -152,13 +170,37 @@ class InventoryAssetResource extends Resource
                 ])
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                    Tables\Actions\ExportBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\ExportBulkAction::make(),
+            ])
+            ->recordUrl(null);
+    }
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                InfoSection::make('Foto Aset')
+                ->description('detail data pegawai')
+                ->columnSpan(1)
+                ->schema([
+                    ImageEntry::make('img')->label('')
+                    ,
+                ]),
+                InfoSection::make('Detil Aset')
+                ->columnSpan(1)
+                ->schema([
+                    TextEntry::make('code')->label('kode'),
+                    TextEntry::make('assetclasification.nama')->label('Klasifikasi Aset'),
+                    TextEntry::make('assettype.nama')->label('Tipe Aset'),
+                    TextEntry::make('assetsubtype.nama')->label('sub Tipe Aset'),
+                    TextEntry::make('assetlocation.nama')->label('Lokasi Aset'),
+                    TextEntry::make('nama'),
+                    TextEntry::make('description')->label('Deskripsi'),
+                    TextEntry::make('tanggal')->label('Tanggal masuk'),
+                    TextEntry::make('updated_at')->label('Terakhir Diubah'),
                 ]),
             ]);
-    }
-
+        }
     public static function getRelations(): array
     {
         return [
