@@ -9,7 +9,13 @@ use App\Models\Masuta;
 use App\Models\SubMasuta;
 use App\Models\SubSubMasuta;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\Entry;
+use Filament\Infolists\Components\ViewEntry;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Components\Section as InfoSection;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Support\Enums\Alignment;
 use Filament\Tables;
@@ -42,7 +48,7 @@ class ArchiveResource extends Resource
                         $set('sub_sub_masuta_id', null);
                     })
                     ->preload()
-                    ->live()
+                    ->live(debounce: 100)
                     ->required()
                     ->native(false),
                     Forms\Components\Select::make('sub_masuta_id')->label('Sub-Kode')
@@ -51,7 +57,7 @@ class ArchiveResource extends Resource
                         ->where('masuta_id', $get('masuta_id'))
                         ->pluck('name', 'id'))
                     ->preload()
-                    ->live()
+                    ->live(debounce: 100)
                     ->required()
                     ->afterStateUpdated(function ($set) {
                         $set('sub_sub_masuta_id', null);
@@ -62,7 +68,7 @@ class ArchiveResource extends Resource
                         ->where('sub_masuta_id', $get('sub_masuta_id'))
                         ->pluck('name', 'id'))
                     ->preload()
-                    ->live()
+                    ->live(debounce: 100)
                     ->required()
                     ->native(false),
                 ])->columns(3),
@@ -82,6 +88,8 @@ class ArchiveResource extends Resource
                     Forms\Components\TextInput::make('detil_status')
                         ,
                     Forms\Components\FileUpload::make('file')
+                        ->directory('documents')
+                        ->openable()
                         ->acceptedFileTypes([
                             'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
                             'application/pdf',
@@ -109,14 +117,14 @@ class ArchiveResource extends Resource
                         return match($state) {
                             'Tidak Butuh Tanda Tangan' => 'gray',
                             'Butuh Tanda Tangan' => 'warning',
-                            'Butuh Perbaikkan' => 'warning',
+                            'Dokumen Belum Lengkap' => 'warning',
                             'Dokumen Lengkap' => 'success'
                         };
                     })
                     ->icon(fn (string $state): string => match ($state) {
-                        'Tidak Butuh Tanda Tangan' => '',
+                        'Tidak Butuh Tanda Tangan' => 'heroicon-o-check-circle',
                         'Butuh Tanda Tangan' => 'heroicon-o-pencil',
-                        'Butuh Perbaikkan' => 'heroicon-o-clock',
+                        'Dokumen Belum Lengkap' => 'heroicon-o-clock',
                         'Dokumen Lengkap' => 'heroicon-o-check-circle',
                     })
                     ->searchable(),
@@ -126,10 +134,12 @@ class ArchiveResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
+                Tables\Columns\TextColumn::make('updated_at')->label('Terakhir diubah')
+                    ->dateTime('[H:i] d-m-Y',
+                    // 'Etc/GMT-7'
+                    )
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: false),
             ])->searchable()
             ->filters([
                 //
@@ -138,14 +148,35 @@ class ArchiveResource extends Resource
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\ViewAction::make(),
                     Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
                 ]),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+            ])
+            ->recordAction(Tables\Actions\ViewAction::class)
+            ->recordUrl(null);
     }
+    // public static function infolist(Infolist $infolist): Infolist
+    // {
+    //     return $infolist
+    //         ->schema([
+    //             InfoSection::make('Dokumen')
+    //             ->description('File Dokumen')
+    //             ->columnSpan(1)
+    //             ->schema([
+    //                 FileUpload::make('file')
+    //             ]),
+    //             InfoSection::make('')
+    //             ->columnSpan(1)
+    //             ->schema([
+    //                 TextEntry::make('nama')->label('Nama Dokumen'),
+    //                 TextEntry::make('masuta.name'),
+    //                 TextEntry::make('created_at')->label('Dibuat pada'),
+    //                 TextEntry::make('updated_at')->label('Terakhir diubah'),
+    //             ]),
+    //         ]);
+    // }
 
     public static function getRelations(): array
     {

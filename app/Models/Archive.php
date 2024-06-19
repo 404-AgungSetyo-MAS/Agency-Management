@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
 
 class Archive extends Model
 {
@@ -25,6 +26,25 @@ class Archive extends Model
         'file',
     ];
 
+
+    protected $casts =[
+        'file' => 'array'
+    ];
+
+    protected static function booted():void
+    {
+        static::deleted(function (Archive $dokumen) {
+            if($dokumen->file !== null) {
+                Storage::disk('public')->delete($dokumen->file);
+            }
+        });
+        static::updating(function (Archive $dokumen) {
+            $filesToDelete = $dokumen->getOriginal('file');
+            if($dokumen->file !== $filesToDelete) {
+                Storage::disk('public')->delete($dokumen);
+            }
+        });
+    }
     // public function masuta(): BelongsTo
     // {
     //     return $this->belongsTo(Masuta::class);
