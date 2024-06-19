@@ -31,10 +31,10 @@ class EmployeeResource extends Resource
     {
         return $form
             ->schema([
-                Section::make('upload Image')
+                Section::make('upload Foto Profil')
                 ->columnSpan(1)
                 ->schema([
-                    Forms\Components\FileUpload::make('img')
+                    Forms\Components\FileUpload::make('img')->label('')
                         ->image()
                         ->imagePreviewHeight('250')
                         // ->loadingIndicatorPosition('right')
@@ -56,7 +56,7 @@ class EmployeeResource extends Resource
                     Forms\Components\TextInput::make('tempat_lahir')
                         ->required()
                         ->maxLength(255),
-                    Forms\Components\DatePicker::make('tgl_lahir')
+                    Forms\Components\DatePicker::make('tgl_lahir')->label('Tanggal Lahir')
                         ->required(),
                     Forms\Components\TextInput::make('jenis_kelamin')
                         ->required()
