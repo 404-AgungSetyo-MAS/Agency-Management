@@ -36,11 +36,13 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->defaultThemeMode(ThemeMode::Light)
             ->font('Kanit')
-            ->brandName('CompMana')
+            ->brandName('Comp-Mana')
+            // ->brandLogo(asset('images/CM-logo.png'))
             ->sidebarCollapsibleOnDesktop()
             ->id('admin')
             ->path('admin')
             ->login(Login::class)
+            ->registration()
             ->colors([
                 'primary' => Color::Red,
             ])
