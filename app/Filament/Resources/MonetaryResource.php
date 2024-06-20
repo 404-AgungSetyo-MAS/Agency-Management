@@ -66,7 +66,7 @@ class MonetaryResource extends Resource
         return $table
             // ->striped()
             ->columns([
-                Tables\Columns\TextColumn::make('code')
+                Tables\Columns\TextColumn::make('code')->label('Kode')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('keukategori.name')->label('kategori')
                     ->searchable()

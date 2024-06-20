@@ -73,7 +73,7 @@ class InventoryAssetResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('description')->label('Deskripsi detil')
-                    ->nullable()
+                    ->default('-')
                     ->maxLength(255),
                 Forms\Components\Select::make('statusaset')->label('Status')
                     ->native(false)

@@ -22,28 +22,10 @@ class StatsAdminOverview extends BaseWidget
             Stat::make('Barang dan Aset', InventoryAsset::query()->count())
             ->description('Total Barang dan Aset')
             ->color('success'),
-
-            Stat::make('Keuangan', number_format(Monetarytarget::query()->whereYear('tanggal_target', Carbon::parse(Carbon::now()))->sum('nominal')))
-            ->label('')
-            ->description('Target Pengeluaran Tahun ini')
-            ->color('info'),
-
-            Stat::make('Keuangan', number_format(Monetary::query()->whereYear('tanggal', Carbon::parse(Carbon::now()))->sum('value')))
-            ->label('')
-            ->description('Pengeluaran Tahun ini')
-            ->chart([12, 8, 3, 5, 10, 7, 10])
-            ->color('danger'),
-
-            Stat::make('Keuangan', number_format(Monetarytarget::query()->whereMonth('tanggal_target', Carbon::parse(Carbon::now()))->sum('nominal')))
-            ->label('')
-            ->description('Target Pengeluaran Bulan ini')
-            ->color('info'),
-
-            Stat::make('Keuangan', number_format(Monetary::query()->whereMonth('tanggal', Carbon::parse(Carbon::now()))->sum('value')))
-            ->label('')
-            ->description('Pengeluaran Bulan ini')
-            ->chart([7, 2, 10, 17, 15, 4, 17])
-            ->color('danger'),
         ];
+    }
+        protected function getColumns(): int
+    {
+        return 2;
     }
 }
