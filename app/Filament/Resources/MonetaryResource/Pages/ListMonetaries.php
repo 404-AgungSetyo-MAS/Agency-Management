@@ -2,8 +2,10 @@
 
 namespace App\Filament\Resources\MonetaryResource\Pages;
 
+use App\Filament\Exports\ArchiveExporter;
 use App\Filament\Resources\MonetaryResource;
 use Filament\Actions;
+use Filament\Actions\Exports\Enums\ExportFormat;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Resources\Pages\ListRecords\Tab;
 use Illuminate\Database\Eloquent\Builder;
@@ -17,6 +19,11 @@ class ListMonetaries extends ListRecords
     {
         return [
             Actions\CreateAction::make()->label('Buat Data Keuangan baru'),
+            Actions\ExportAction::make()->label('Export')
+            ->exporter(ArchiveExporter::class)
+            ->formats([
+                ExportFormat::Xlsx,
+            ]),
         ];
     }
 

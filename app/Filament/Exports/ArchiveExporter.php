@@ -14,24 +14,19 @@ class ArchiveExporter extends Exporter
     public static function getColumns(): array
     {
         return [
-            ExportColumn::make('id')
-                ->label('ID'),
-            // ExportColumn::make('masuta_id'),
-            // ExportColumn::make('subMasuta.name'),
-            // ExportColumn::make('subSubMasuta.name'),
             ExportColumn::make('full_code')->label('kode dokumen'),
             ExportColumn::make('nama')->label('nama dokumen'),
             ExportColumn::make('statusdoc.name')->label('status'),
             ExportColumn::make('detil_status'),
-            // ExportColumn::make('file'),
-            ExportColumn::make('created_at'),
-            ExportColumn::make('updated_at'),
+            ExportColumn::make('file'),
+            ExportColumn::make('created_at')->label('Dokumen Dibuat'),
+            ExportColumn::make('updated_at')->label('Terakhir diubah'),
         ];
     }
 
     public static function getCompletedNotificationBody(Export $export): string
     {
-        $body = 'Your archive export has completed and ' . number_format($export->successful_rows) . ' ' . str('row')->plural($export->successful_rows) . ' exported.';
+        $body = 'Data Arsip Telah di Ekspor sebanyak ' . number_format($export->successful_rows) . ' ' . ' Data.';
 
         if ($failedRowsCount = $export->getFailedRowsCount()) {
             $body .= ' ' . number_format($failedRowsCount) . ' ' . str('row')->plural($failedRowsCount) . ' failed to export.';

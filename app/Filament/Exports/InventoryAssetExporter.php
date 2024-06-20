@@ -14,26 +14,19 @@ class InventoryAssetExporter extends Exporter
     public static function getColumns(): array
     {
         return [
-            ExportColumn::make('id')
-                ->label('ID'),
-            ExportColumn::make('img'),
-            ExportColumn::make('code'),
-            ExportColumn::make('assetClasification.id'),
-            ExportColumn::make('assetType.id'),
-            ExportColumn::make('assetSubType.id'),
-            ExportColumn::make('assetLocation.id'),
-            ExportColumn::make('tanggal'),
-            ExportColumn::make('nama'),
-            ExportColumn::make('description'),
-            ExportColumn::make('statusaset'),
-            ExportColumn::make('created_at'),
-            ExportColumn::make('updated_at'),
+            ExportColumn::make('code')->label('Kode Aset'),
+            ExportColumn::make('assetLocation.name')->label('Lokasi Aset'),
+            ExportColumn::make('nama')->label('Nama Aset'),
+            ExportColumn::make('description')->label('Deskripsi Aset'),
+            ExportColumn::make('statusaset')->label('Status'),
+            ExportColumn::make('tanggal')->label('Tanggal Masuk'),
+            ExportColumn::make('updated_at')->label('Terakhir Diubah'),
         ];
     }
 
     public static function getCompletedNotificationBody(Export $export): string
     {
-        $body = 'Your inventory asset export has completed and ' . number_format($export->successful_rows) . ' ' . str('row')->plural($export->successful_rows) . ' exported.';
+        $body = 'Data Keuangan Telah di Ekspor sebanyak ' . number_format($export->successful_rows) . ' ' . ' Data.';
 
         if ($failedRowsCount = $export->getFailedRowsCount()) {
             $body .= ' ' . number_format($failedRowsCount) . ' ' . str('row')->plural($failedRowsCount) . ' failed to export.';
