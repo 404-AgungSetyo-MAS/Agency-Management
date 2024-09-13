@@ -100,7 +100,7 @@ class EmployeeResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('nomor_telepon')
                     ->searchable(),
-            ])
+            ])->defaultSort('id', 'desc')
             ->filters([
                 //
             ])
