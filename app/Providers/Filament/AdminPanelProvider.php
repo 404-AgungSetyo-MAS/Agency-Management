@@ -46,7 +46,7 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Red,
                 ])
-            ->registration()
+            // ->registration()
             ->userMenuItems([
                 MenuItem::make()
                 ->label('Daftar User baru')
