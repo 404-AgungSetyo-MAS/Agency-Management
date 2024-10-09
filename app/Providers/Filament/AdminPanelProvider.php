@@ -10,6 +10,7 @@ use Filament\Enums\ThemeMode;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\MenuItem;
 use Filament\Pages;
 use Filament\Pages\Auth\Login;
 use Filament\Panel;
@@ -42,9 +43,16 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login(Login::class)
-            ->registration()
             ->colors([
                 'primary' => Color::Red,
+                ])
+            ->registration()
+            ->userMenuItems([
+                MenuItem::make()
+                ->label('Daftar User baru')
+                ->icon('heroicon-o-cog-6-tooth')
+                ->url('/admin/register')
+                ->visible(fn (): bool => auth()->user()->isAdmin())
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
