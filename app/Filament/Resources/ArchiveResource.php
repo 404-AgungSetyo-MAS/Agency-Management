@@ -157,26 +157,6 @@ class ArchiveResource extends Resource
             ->recordAction(Tables\Actions\ViewAction::class)
             ->recordUrl(null);
     }
-    // public static function infolist(Infolist $infolist): Infolist
-    // {
-    //     return $infolist
-    //         ->schema([
-    //             InfoSection::make('Dokumen')
-    //             ->description('File Dokumen')
-    //             ->columnSpan(1)
-    //             ->schema([
-    //                 FileUpload::make('file')
-    //             ]),
-    //             InfoSection::make('')
-    //             ->columnSpan(1)
-    //             ->schema([
-    //                 TextEntry::make('nama')->label('Nama Dokumen'),
-    //                 TextEntry::make('masuta.name'),
-    //                 TextEntry::make('created_at')->label('Dibuat pada'),
-    //                 TextEntry::make('updated_at')->label('Terakhir diubah'),
-    //             ]),
-    //         ]);
-    // }
 
     public static function getRelations(): array
     {
@@ -189,8 +169,6 @@ class ArchiveResource extends Resource
     {
         return [
             'index' => Pages\ListArchives::route('/'),
-            // 'create' => Pages\CreateArchive::route('/create'),
-            // 'view' => Pages\ViewArchive::route('/{record}'),
             'edit' => Pages\EditArchive::route('/{record}/edit'),
         ];
     }

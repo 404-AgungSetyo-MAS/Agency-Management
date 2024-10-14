@@ -55,6 +55,7 @@ return new class extends Migration
             $table->json('file')->nullable();
             $table->timestamps();
         });
+
         Schema::create('inventory_assets', function (Blueprint $table) {
             $table->id();
             $table->json('img')->nullable();
@@ -78,10 +79,14 @@ return new class extends Migration
             $table->foreignId('statusaset_id')->default(0);
             $table->timestamps();
         });
+
         Schema::create('monetaries', function (Blueprint $table) {
             $table->id();
             $table->string('nomor')->virtualAs('concat(LPAD(id,4,\'0\'))');
-            $table->string('code')->virtualAs('concat(LPAD(keukategori_id, 2, \'0\'), \'.\', LPAD(keusubkategori_id, 2, \'0\'),\'.\',date_format(tanggal, \'%m%y\'), nomor)');
+            $table->string('code')->virtualAs('concat(
+                LPAD(keukategori_id, 2, \'0\'), \'.\',
+                LPAD(keusubkategori_id, 2, \'0\'),\'.\',
+                date_format(tanggal, \'%m%y\'), nomor)');
             $table->foreignId('keukategori_id')->constrained()->cascadeOnDelete();
             $table->foreignId('keusubkategori_id')->constrained()->cascadeOnDelete();
             $table->string('name');

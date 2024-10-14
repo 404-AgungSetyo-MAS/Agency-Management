@@ -38,7 +38,6 @@ class AdminPanelProvider extends PanelProvider
             ->defaultThemeMode(ThemeMode::Light)
             ->font('Kanit')
             ->brandName('Comp-Mana')
-            // ->brandLogo(asset('images/CM-logo.png'))
             ->sidebarCollapsibleOnDesktop()
             ->id('admin')
             ->path('admin')
@@ -46,7 +45,6 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Red,
                 ])
-            // ->registration()
             ->userMenuItems([
                 MenuItem::make()
                 ->label('Daftar User baru')
@@ -62,7 +60,6 @@ class AdminPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
-                // Widgets\FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,

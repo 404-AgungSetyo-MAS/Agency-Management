@@ -37,13 +37,7 @@ class EmployeeResource extends Resource
                     Forms\Components\FileUpload::make('img')->label('')
                         ->image()
                         ->imagePreviewHeight('250')
-                        // ->loadingIndicatorPosition('right')
                         ->panelAspectRatio('1:1')
-                        // ->panelLayout('integrated')
-                        // ->removeUploadedFileButtonPosition('right')
-                        // ->uploadButtonPosition('left')
-                        // ->uploadProgressIndicatorPosition('left')
-                        // ->maxSize(2048)
                         ->disk('public')
                         ->directory('images/pegawai'),
                 ]),
@@ -160,8 +154,6 @@ class EmployeeResource extends Resource
     {
         return [
             'index' => Pages\ListEmployees::route('/'),
-            // 'create' => Pages\CreateEmployee::route('/create'),
-            // 'view' => Pages\ViewEmployee::route('/{record}'),
             'edit' => Pages\EditEmployee::route('/{record}/edit'),
         ];
     }
