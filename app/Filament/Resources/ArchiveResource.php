@@ -86,10 +86,12 @@ class ArchiveResource extends Resource
                         ->live()
                         ->native(false),
                     Forms\Components\TextInput::make('detil_status')
-                        ,
+                        ->default('-')
+                        ->maxLength(255),
                     Forms\Components\FileUpload::make('file')
                         ->directory('documents')
                         ->openable()
+                        ->preserveFilenames()
                         ->acceptedFileTypes([
                             'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
                             'application/pdf',

@@ -8,6 +8,11 @@ return new class extends Migration
 {
     public function up(): void
     {
+
+        // Schema::dropIfExists('sub_sub_masutas');
+        // Schema::dropIfExists('sub_masutas');
+        // Schema::dropIfExists('masutas');
+
         Schema::create('masutas', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable()->unique();
@@ -18,7 +23,6 @@ return new class extends Migration
         Schema::create('sub_masutas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('masuta_id')->constrained()->cascadeOnDelete();
-            // $table->unsignedBigInteger('code')->unique();
             $table->string('name')->unique();
             $table->timestamps();
         });
@@ -27,7 +31,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('masuta_id')->constrained()->cascadeOnDelete();
             $table->foreignId('sub_masuta_id')->constrained()->cascadeOnDelete();
-            // $table->unsignedBigInteger('code')->unique();
             $table->string('name')->unique();
             $table->timestamps();
         });

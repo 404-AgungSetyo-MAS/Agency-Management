@@ -13,6 +13,7 @@ use Filament\GlobalSearch\Contracts\GlobalSearchProvider;
 use Filament\Models\Contracts\HasAvatar;
 use Filament\Models\Contracts\HasDefaultTenant;
 use Filament\Models\Contracts\HasName;
+use Filament\Models\Contracts\HasRole;
 use Filament\Models\Contracts\HasTenants;
 use Filament\Navigation\MenuItem;
 use Filament\Navigation\NavigationGroup;
@@ -486,6 +487,14 @@ class FilamentManager
         }
 
         return $user->getAttributeValue('name');
+    }
+    public function getUserRole(Model | Authenticatable $user): string
+    {
+        if ($user instanceof HasRole) {
+            return $user->getFilamentRole();
+        }
+
+        return $user->getAttributeValue('role');
     }
 
     /**

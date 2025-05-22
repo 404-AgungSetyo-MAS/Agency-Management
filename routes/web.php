@@ -20,6 +20,10 @@ Route::get('/', function () {
 
 Route::resource('Monetaries', MonetaryController::class);
 
+// Route::get('/login', function () {
+//     return redirect(route('filament.main.auth.login'));
+// })->name('login');
+
 Route::get('/login', function () {
     return redirect(route('filament.admin.auth.login'));
 })->name('login');

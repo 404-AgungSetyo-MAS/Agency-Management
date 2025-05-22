@@ -11,6 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Schema::dropIfExists('anggarans');
+        // Schema::dropIfExists('keukategoris');
+        // Schema::dropIfExists('keusubkategoris');
+
         Schema::create("anggarans", function (Blueprint $table) {
             $table->id();
             $table->float('nominal');

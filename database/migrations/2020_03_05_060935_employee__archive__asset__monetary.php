@@ -7,22 +7,12 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
 
-        /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        //
-    }
+
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::dropIfExists('employees');
-        Schema::dropIfExists('archives');
-        Schema::dropIfExists('inventory_assets');
-        Schema::dropIfExists('monetaries');
 
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
@@ -51,7 +41,7 @@ return new class extends Migration
                 )');
             $table->string('nama');
             $table->foreignId('statusdoc_id')->default(0);
-            $table->string('detil_status')->nullable();
+            $table->string('detil_status');
             $table->json('file')->nullable();
             $table->timestamps();
         });
@@ -94,5 +84,15 @@ return new class extends Migration
             $table->integer('value');
             $table->timestamps();
         });
+    }
+     /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('employees');
+        Schema::dropIfExists('archives');
+        Schema::dropIfExists('inventory_assets');
+        Schema::dropIfExists('monetaries');
     }
 };

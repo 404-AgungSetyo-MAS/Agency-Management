@@ -6,6 +6,7 @@ use App\Filament\Resources\MonetaryResource;
 use App\Filament\Resources\KeukategoriResource;
 use App\Filament\Resources\KeusubkategoriResource;
 use App\Filament\Widgets\StatsAdminOverview;
+use App\Http\Middleware\VerifyIsAdmin;
 use Filament\Enums\ThemeMode;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -13,6 +14,7 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Navigation\MenuItem;
 use Filament\Pages;
 use Filament\Pages\Auth\Login;
+use Filament\Pages\Auth\Register;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
@@ -34,22 +36,20 @@ class AdminPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->default()
             ->defaultThemeMode(ThemeMode::Light)
             ->font('Kanit')
             ->brandName('Comp-Mana')
             ->sidebarCollapsibleOnDesktop()
             ->id('admin')
             ->path('admin')
-            ->login(Login::class)
             ->colors([
                 'primary' => Color::Red,
                 ])
             ->userMenuItems([
                 MenuItem::make()
-                ->label('Daftar User baru')
+                ->label('Keluar Mode Admin')
                 ->icon('heroicon-o-cog-6-tooth')
-                ->url('/admin/register')
+                ->url('/main')
                 ->visible(fn (): bool => auth()->user()->isAdmin())
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
@@ -71,9 +71,7 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
-            ])
-            ->authMiddleware([
-                Authenticate::class,
+                VerifyIsAdmin::class,
             ])
             ->collapsibleNavigationGroups(false)
             ->topbar(true)

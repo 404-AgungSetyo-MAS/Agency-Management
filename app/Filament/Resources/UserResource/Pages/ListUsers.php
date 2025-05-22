@@ -14,7 +14,7 @@ class ListUsers extends ListRecords
     {
         return [
             Actions\CreateAction::make()
-            ->hidden(fn (): bool => auth()->user()->isAdmin()),
+            // ->hidden(fn (): bool => auth()->user()->isAdmin()),
         ];
     }
 }

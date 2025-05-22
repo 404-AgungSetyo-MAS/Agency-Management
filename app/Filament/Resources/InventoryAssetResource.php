@@ -94,7 +94,8 @@ class InventoryAssetResource extends Resource
                         ->reorderable()
                         ->openable()
                         ->disk('public')
-                        ->directory('images/aset'),
+                        ->directory('images/aset')
+                        ->preserveFilenames(),
                 ]),
             ]);
     }

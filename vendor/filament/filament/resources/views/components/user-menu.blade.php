@@ -23,13 +23,17 @@
     "
 >
     <x-slot name="trigger">
-        <button
-            aria-label="{{ __('filament-panels::layout.actions.open_user_menu.label') }}"
-            type="button"
-            class="shrink-0"
-        >
-            <x-filament-panels::avatar.user :user="$user" />
-        </button>
+        <div class="flex flex-col items-center">
+            <button
+                aria-label="{{ __('filament-panels::layout.actions.open_user_menu.label') }}"
+                type="button"
+                class="shrink-0"
+            >
+                <x-filament-panels::avatar.user :user="$user" />
+            </button>
+            <p>  {{ $profileItem?->getLabel() ?? ($profilePage ? $profilePage::getLabel() : null) ?? filament()->getUserName($user) }}</p>
+            <b>{{ filament()->getUserRole($user) }}</b>
+        </div>
     </x-slot>
 
     @if ($profileItem?->isVisible() ?? true)
@@ -53,6 +57,8 @@
                 :icon="$profileItem?->getIcon() ?? \Filament\Support\Facades\FilamentIcon::resolve('panels::user-menu.profile-item') ?? 'heroicon-m-user-circle'"
             >
                 {{ $profileItem?->getLabel() ?? filament()->getUserName($user) }}
+                <br>
+                <b>{{ filament()->getUserRole($user) }}</b>
             </x-filament::dropdown.header>
         @endif
 

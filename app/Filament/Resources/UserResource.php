@@ -13,6 +13,9 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
+use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Facades\Hash;
+
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
@@ -24,19 +27,40 @@ class UserResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label(__('filament-panels::pages/auth/register.form.name.label'))
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->autofocus(),
                 Forms\Components\TextInput::make('email')
+                    ->label(__('filament-panels::pages/auth/register.form.email.label'))
                     ->email()
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('role')
                     ->maxLength(255)
-                    ->default(null),
+                    ->unique('users'),
+                Forms\Components\Select::make('role')
+                    ->options([
+                        'kepegawaian' => 'Kepegawaian',
+                        'kearsipan' => 'Kearsipan',
+                        'aset' => 'Aset',
+                        'keuangan' => 'Keuangan',
+                    ])
+                    // ->native(false)
+                    ,
                 Forms\Components\TextInput::make('password')
+                    ->label(__('filament-panels::pages/auth/register.form.password.label'))
                     ->password()
+                    ->revealable(filament()->arePasswordsRevealable())
                     ->required()
-                    ->maxLength(255),
+                    ->rule(Password::default())
+                    ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+                    ->same('passwordConfirmation')
+                    ->validationAttribute(__('filament-panels::pages/auth/register.form.password.validation_attribute')),
+                Forms\Components\TextInput::make('passwordConfirmation')
+                    ->label(__('filament-panels::pages/auth/register.form.password_confirmation.label'))
+                    ->password()
+                    ->revealable(filament()->arePasswordsRevealable())
+                    ->required()
+                    ->dehydrated(false),
             ]);
     }
 
@@ -48,11 +72,8 @@ class UserResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
-                // Tables\Columns\TextColumn::make('role')
-                //     ->searchable(),
-                // Tables\Columns\TextColumn::make('email_verified_at')
-                //     ->dateTime()
-                //     ->sortable(),
+                Tables\Columns\TextColumn::make('role')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -85,9 +106,9 @@ class UserResource extends Resource
     {
         return [
             'index' => Pages\ListUsers::route('/'),
-            'create' => Pages\CreateUser::route('/create'),
-            'view' => Pages\ViewUser::route('/{record}'),
-            'edit' => Pages\EditUser::route('/{record}/edit'),
+            // 'create' => Pages\CreateUser::route('/create'),
+            // 'view' => Pages\ViewUser::route('/{record}'),
+            // 'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }
 }

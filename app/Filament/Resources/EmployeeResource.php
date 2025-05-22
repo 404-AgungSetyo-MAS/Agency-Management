@@ -39,7 +39,8 @@ class EmployeeResource extends Resource
                         ->imagePreviewHeight('250')
                         ->panelAspectRatio('1:1')
                         ->disk('public')
-                        ->directory('images/pegawai'),
+                        ->directory('images/pegawai')
+                        ->preserveFilenames(),
                 ]),
                 Section::make('Data Pegawai')
                 ->columnSpan(1)
@@ -98,6 +99,7 @@ class EmployeeResource extends Resource
             ->filters([
                 //
             ])
+            // ->visible(fn (): bool => auth()->user()->isKepeg())
             ->actions([
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\ViewAction::make(),
